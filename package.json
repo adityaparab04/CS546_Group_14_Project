@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/adityaparab04/CS546_Group_14_Project/issues"
   },
-  "homepage": "https://github.com/adityaparab04/CS546_Group_14_Project#readme"
+  "homepage": "https://github.com/adityaparab04/CS546_Group_14_Project#readme",
+  "dependencies": {
+    "express-handlebars": "^6.0.1"
+  }
 }
