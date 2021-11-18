@@ -1,0 +1,24 @@
+{
+  "name": "cs546_group_14_project",
+  "version": "1.0.0",
+  "description": "This is our group project for fall 21, CS 546",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adityaparab04/CS546_Group_14_Project.git"
+  },
+  "keywords": [
+    "Website",
+    "anime",
+    "forum"
+  ],
+  "author": "Group 14",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adityaparab04/CS546_Group_14_Project/issues"
+  },
+  "homepage": "https://github.com/adityaparab04/CS546_Group_14_Project#readme"
+}
