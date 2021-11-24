@@ -4,7 +4,10 @@
   "description": "This is our group project for fall 21, CS 546",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "seed": "node ./tasks/seed.js",
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -23,8 +26,16 @@
   "homepage": "https://github.com/adityaparab04/CS546_Group_14_Project#readme",
   "dependencies": {
     "axios": "^0.24.0",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
     "express": "^4.17.1",
-    "express-handlebars": "^6.0.1",
+    "express-handlebars": "^5.3.4",
+    "express-session": "^1.17.2",
+    "handlebars": "^4.7.7",
     "mongodb": "^4.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
