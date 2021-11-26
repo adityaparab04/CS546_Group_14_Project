@@ -1,7 +1,5 @@
-const reviewData = require('./reviews');
-const commentData = require('./comments')
+const characterData = require("./anime");
 
-module.exports = {
-    reviews: reviewData,
-    comments: commentData
-};
+module.exports ={
+    character : characterData
+}
