@@ -1,0 +1,28 @@
+<div class="container">
+<a class="get-home" href="/">Make another search</a>
+<main>
+  <h1 class="main-search">{{title}}</h1>
+  <h2 class="character-return">{{character}}</h2>
+  
+    <div class="row">
+      {{#if newCharacter}}
+        <div class="column">
+          {{#each newCharacter}}
+
+            <a class="anime-item" href="/anime/{{this.id}}"><img
+                class="character-image"
+                src="{{this.attributes.posterImage.small}}"
+                alt="{{this.attributes.canonicalTitle}}"
+              />
+              </a>
+
+          {{/each}}
+        </div>
+      {{else}}
+        <p class="not-found">We're sorry, but no results were found for
+          {{character}}.</p>
+      {{/if}}
+    </div>
+ 
+</main>
+ </div>
