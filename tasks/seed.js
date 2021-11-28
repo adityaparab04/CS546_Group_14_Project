@@ -8,30 +8,11 @@ const animeData = require("./data/anime");
 
 async function main() {
     
-    // try {
-  //   const marvel = await animeData.get();
-  //   console.log(marvel);
-  // } catch (e) {
-  //   console.log(e);
-  // }
-
-  try{
-    const anime = await animeData.getcharacterbyId("100");
-    console.log(anime);
-  }catch(e){
-    console.log(e);
-  }
-
-
-  // try {
-  //   const animeByName = await animeData.getCharacterByName('one piece');
-  //   console.log(animeByName);
-  // } catch (e) {
-  //   console.log(e);
-  // }
-
   const db = await connection.connectToDb();
-    await db.dropDatabase();
+  await db.dropDatabase();
+
+
+  await connection.closeConnection();
 
 }
 
