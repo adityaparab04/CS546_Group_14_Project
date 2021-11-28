@@ -16,5 +16,6 @@ const getCollectionFunc = (collection) => {
 module.exports = {
     reviews: getCollectionFunc('reviews'),
     users: getCollectionFunc('users'),
-    comments: getCollectionFunc('comments')
+    comments: getCollectionFunc('comments'),
+    anime: getCollectionFunc('anime')
 };
