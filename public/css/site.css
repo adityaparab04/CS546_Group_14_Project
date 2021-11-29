@@ -101,8 +101,18 @@
   
   .item-name{
       color: blueviolet;
-      text-decoration:underline;
+  }
+
+  .jumbotron{
+    background-color: blueviolet;
+    border-radius: 8px;
   }
   
-  
+.home_top_trending{
+  border-left: 10px solid darkorange;
+  text-align: start;
+  background-color: orange;
+  border-radius: 8px;
+  margin-bottom: 5px;
+}
   

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
 
 <main>
 
@@ -10,16 +10,16 @@
     and explore the vast anime universe and become one with the Anime</p>
   </div>
 </div>
-  
+  <h3 class="home_top_trending">Top Trending Anime</h3>
   <div class="row">
     {{#if character}}
-    <div class="col">
-      {{#each character}}
-      
+     {{#each character}}
+    <div class="col-sm-3">
                 <a class="anime-item" href="/anime/{{this.id}}"><img class="character-image" 
                 src= "{{this.attributes.posterImage.small}}" alt="{{this.attributes.canonicalTitle}}"></a>
-     {{/each}}
+                <h5>{{this.attributes.canonicalTitle}}</h5>
     </div>
+    {{/each}}
     {{/if}}
   </div>
   </div>

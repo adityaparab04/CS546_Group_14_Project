@@ -5,7 +5,7 @@ const animeData = data.character;
 
 router.get("/", async (req, res) => {
   try {
-    const getAllAnime = await animeData.get();
+    const getAllAnime = await animeData.getTrendingAnimeList();
     const homePage = {
       title: "Otaku Hub",
       character:getAllAnime
