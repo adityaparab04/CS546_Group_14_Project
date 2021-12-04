@@ -1,6 +1,4 @@
-* {
-    box-sizing: border-box;
-  }
+
   
   html,
   body {
@@ -34,13 +32,11 @@
   h4,
   h5,
   h6 {
-    color: aqua;
     margin-bottom: 5px;
     text-align: center;
   }
   
   p {
-    color: aqua;
     font-size: 1rem;
     line-height: 2;
   }
@@ -58,11 +54,7 @@
     text-align: center;
     color: white;
   }
-  .bottom-left {
-    position: absolute;
-    bottom: 8px;
-    left: 16px;
-  }
+
   footer {
     background-color:darkblue;
     padding: 25px;
@@ -72,31 +64,9 @@
     color:white;
   }
   
-  #character-name {
-    margin-top: 10px;
-    font-weight: bold;
-    width: 600px;
-    height: 50px;
-    border-radius: 12px;
-    border: none;
-    font-size: large;
-  }
-  .bottom-left {
-    position: absolute;
-    bottom: 8px;
-    left: 16px;
-  }
-  
   #search {
-    border-radius: 8px;
     background-color: purple;
-    border: none;
     color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
   }
   
   .item-name{
@@ -105,4 +75,11 @@
   }
   
   
-  
+  body > footer {
+    position: sticky;
+    top: 100vh;
+  }
+  .btn{
+    margin-right: 10px;
+    color: white !important;
+  }
