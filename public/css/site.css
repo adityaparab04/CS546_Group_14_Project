@@ -57,7 +57,6 @@ p {
   position: relative;
   text-align: center;
   color: white;
-  padding-left: 20%;
 }
 
 footer {
@@ -97,6 +96,7 @@ footer {
   background-color: #901100;
   border-radius: 8px;
   margin-bottom: 10px;
+  margin-top: 5%;
 }
 
 a {
