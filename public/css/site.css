@@ -115,6 +115,8 @@ a:hover {
 
 .category-cateloge {
   text-align: center;
+  padding-left: 10%;
+  padding-bottom: 10px;
 }
 
 #orderTwo {
@@ -128,4 +130,9 @@ body > footer {
 .btn {
   margin-right: 10px;
   color: white !important;
+}
+
+.login-link{
+  text-align: center;
+  color: purple;
 }
