@@ -1,0 +1,25 @@
+{{#if msg}}
+<div class="alert alert-success col-4 offset-4" role="alert">
+    <h4 class="alert-heading">Message!</h4>
+    <p>{{msg}}</p>
+</div>
+{{else}}
+<div class="card mb-4 bg-dark col-4 offset-4">
+    <ul class="list-group bg-dark list-group-flush">
+        <li class="list-group-item bg-dark" style="color: white;">Username: {{user.username}}</li>
+        <li class="list-group-item bg-dark" style="color: white;">Age: {{user.age}} Years</li>
+        <li class="list-group-item bg-dark" style="color: white;">Email: {{user.email}}</li>
+    </ul>
+    <div class="card-footer">
+        <div class="d-grid gap-2">
+            <button class="btn btn-outline-primary" onclick="window.location.href='/users/update_profile'"
+                type="button">Update Account</button>
+        </div>
+        <br>
+        <div class="d-grid gap-2">
+            <button class="btn btn-outline-danger" onclick="window.location.href='/users/remove_profile'"
+                type="button">Delete Account</button>
+        </div>
+    </div>
+</div>
+{{/if}}
