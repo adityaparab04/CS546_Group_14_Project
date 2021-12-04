@@ -164,7 +164,7 @@ router.post('/signup', async function (req, res) {
     } catch (e) {
         errorMessage = e;
     }
-    console.log(errorMessage);
+    //console.log(errorMessage);
     res.render('users/signup', { title: "Error", error: errorMessage, isUserLoggedIn: req.session.user != null ? true : false })
 });
 
@@ -207,7 +207,7 @@ router.post('/login', async function (req, res) {
     }
     if (errorMessage == null) {
         const user = await checkvalid(req);
-        console.log(user)
+        //console.log(user)
         if (user) {
             req.session.user = user;
             return res.send({ status: true, error: null });
@@ -298,7 +298,7 @@ router.post('/update_profile', async function (req, res) {
     } catch (e) {
         errorMessage = e;
     }
-    console.log(errorMessage);
+    //console.log(errorMessage);
     res.render('/users/updateProfile', { title: "Error", error: errorMessage, user: req.session.user, isUserLoggedIn: req.session.user != null ? true : false })
 });
 

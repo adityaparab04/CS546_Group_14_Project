@@ -17,7 +17,7 @@ function validateSignupInputs(e) {
     else if (username.length < 5 || username.length > 15) {
         errorMessage = "Enter a User Name with more than 4 and less than 15 characters";
     }
-    else if (!username.match(/^[a-z0-9_@\.]+$/)) {
+    else if (!username.match(/^[a-zA-Z0-9_@\.]+$/)) {
         errorMessage = "Enter a User Name only with valid characters";
     }
     else if (!email) {
@@ -109,7 +109,7 @@ async function validateSignInInputs(e) {
     else if (username.length < 5 || username.length > 15) {
         errorMessage = "Enter a User Name with more than 4 and less than 15 characters";
     }
-    else if (!username.match(/^[a-z0-9_@\.]+$/)) {
+    else if (!username.match(/^[a-zA-Z0-9_@\.]+$/)) {
         errorMessage = "Enter a User Name only with valid characters";
     }
     else if (!password) {
@@ -149,6 +149,7 @@ async function validateSignInInputs(e) {
 
 function validateUpdateProfileInputs(e) {
     const password = document.getElementById("password").value;
+    const confirm_pass = document.getElementById("confirm-password").value;
     const age = Number(document.getElementById("age").value);
     const email = document.getElementById("email").value;
     let errorMessage = null;
@@ -178,6 +179,18 @@ function validateUpdateProfileInputs(e) {
     }
     else if ( password && !password.match(/^(?!\s*$).+/)) {
         errorMessage = "Enter password only with valid characters";
+    }
+    else if (!confirm_pass) {
+        errorMessage = "You must provide a confirm password";
+    }
+    else if (confirm_pass == null) {
+        errorMessage = "confirm password cannot be null";
+    }
+    else if (confirm_pass == undefined) {
+        errorMessage = "confirm password not defined";
+    }
+    else if (confirm_pass != password) {
+        errorMessage = "password and confirm password do not match.";
     }
     else {
         errorMessage = null;
