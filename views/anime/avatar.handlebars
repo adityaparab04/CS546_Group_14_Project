@@ -1,21 +1,25 @@
-<a class="get-home" href="/">Make another search</a>
+
 <div class="container-fluid">
+    {{!-- <a class="btn btn-primary" href="/" role="button">Make another search</a> --}}
     <main>
 
 <div class="row" style="color: white;">
     <div class="col-3">
             <img class="character-image" src= "{{character.attributes.posterImage.small}}" alt="{{character.attributes.canonicalTitle}}">
-            <h3 class="item-name">{{character.attributes.canonicalTitle}}</h3> 
+            
     </div>
     <div class="col-9">
-        <h3 class="comic-header">Japanese Name:{{character.attributes.titles.ja_jp}}</h3>
+    <h1 class="item-name">{{character.attributes.canonicalTitle}}</h3> 
+    <h2 class="comic-header">Japanese Name:{{character.attributes.titles.ja_jp}}</h3>
     <h3>Critics Average Rating:{{character.attributes.averageRating}}</h3>
-    <br>
-    <h3>Start Date:{{character.attributes.startDate}}</h3>
-    <h3>End Date:{{character.attributes.endDate}}</h3>
-    <h4>Age Rating:{{character.attributes.ageRating}}</h4>
-    <h4>Age Rating Guide:{{character.attributes.ageRatingGuide}}</h4>
-    <h4>Status:{{character.attributes.status}}</h4>
+    <br><br>
+    <div id="avatar-details">
+    <h4>Start Date:{{character.attributes.startDate}}</h4>
+    <h4>End Date:{{character.attributes.endDate}}</h4>
+    <h5>Age Rating:{{character.attributes.ageRating}}</h5>
+    <h5>Age Rating Guide:{{character.attributes.ageRatingGuide}}</h5>
+    <h5>Status:{{character.attributes.status}}</h5>
+    </div>
     </div>
     <div class="col-3">
         <h5>Synopsis:</h5>  
