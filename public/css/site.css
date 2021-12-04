@@ -100,7 +100,7 @@
   }
   
   .item-name{
-      color: blueviolet;
+      color: #964de8;
   }
 
   .jumbotron{
@@ -109,10 +109,43 @@
   }
   
 .home_top_trending{
-  border-left: 10px solid darkorange;
+  border-left: 10px solid red;
   text-align: start;
-  background-color: orange;
+  background-color: #901100;
   border-radius: 8px;
   margin-bottom: 5px;
 }
+
+.categories{
+  border-left: 10px solid red;
+  text-align: start;
+  background-color: #901100;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+a {
+  display: inline-block;
+  transition: .3s;
+  font-weight:bold;
+  text-decoration:none;
+  }
+  a:hover {
+  -webkit-transform: scale(1.2);
+  transform: scale(1.1);
+  }
+
+#avatar-details{
+  text-align: start;
+}
+
+.category-cateloge{
+  text-align: center;
+}
+
+#orderTwo{
+  margin-top: 30px;
+}
+
+ 
   

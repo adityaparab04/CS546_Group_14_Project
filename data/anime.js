@@ -22,12 +22,13 @@ async function get() {
   return tempArr;
 }
 
+//*get characters by name
 async function getFilerByName(name) {
   const url = baseUrl + "/anime?filter[text]=" + name+"&page[limit]=20";
   const { data } = await axios.get(url);
   return data;
 }
-//*get characters by name
+
 async function getCharacterByName(animeName) {
   if (arguments.length !== 1) {
     throw "Arguments provided not satisfied";
@@ -54,7 +55,43 @@ async function getCharacterByName(animeName) {
 
   return tempArr;
 }
+//*get next row of characters in the search field
 
+async function getNameNext20(name) {
+  const url = baseUrl + "/anime?filter[text]=" + name+"&page[limit]=20&page[offset]=20";
+  const { data } = await axios.get(url);
+  return data;
+}
+
+async function getNext20(animeName) {
+  if (arguments.length !== 1) {
+    throw "Arguments provided not satisfied";
+  }
+  if (!animeName) {
+    throw "please provide a character";
+  }
+  if (animeName.trim() === "") {
+    throw "character is empty";
+  }
+
+  if (typeof animeName !== "string") {
+    throw "Character is not of type string";
+  }
+
+  const characterCollection = await getNameNext20(animeName.trim());
+  let tempArr = [];
+  //tempArr = characterCollection.data;
+  for (let key in characterCollection) {
+    if (key === "data") {
+      tempArr = characterCollection[key];
+    }
+  }
+
+  return tempArr;
+}
+
+
+//*get character by id 
 async function getID(id) {
   const mainUrl = baseUrl + "/anime/" + id;
 
@@ -287,6 +324,64 @@ async function  getCategoryThriller(){
   return tempArr;
 }
 
+//TODO:Anime Rating by age 
+
+//! anime age rating PG
+async function getPG() {
+  const mainUrl = baseUrl + "/anime?filter[ageRating]=PG&page[limit]=20";
+  const { data } = await axios.get(mainUrl);
+  return data;
+}
+
+async function  getAgePG(){
+  const characterCollection = await getPG();
+  let tempArr = undefined;
+  for (let key in characterCollection) {
+    if (key === "data") {
+      tempArr = characterCollection[key];
+    }
+  }
+  return tempArr;
+}
+
+//! anime age reating R
+async function getR() {
+  const mainUrl = baseUrl + "/anime?filter[ageRating]=R&page[limit]=20";
+  const { data } = await axios.get(mainUrl);
+  return data;
+}
+
+async function  getAgeR(){
+  const characterCollection = await getR();
+  let tempArr = undefined;
+  for (let key in characterCollection) {
+    if (key === "data") {
+      tempArr = characterCollection[key];
+    }
+  }
+  return tempArr;
+}
+//! anime age rating G
+
+async function getG() {
+  const mainUrl = baseUrl + "/anime?filter[ageRating]=G&page[limit]=20";
+  const { data } = await axios.get(mainUrl);
+  return data;
+}
+
+async function  getAgeG(){
+  const characterCollection = await getG();
+  let tempArr = undefined;
+  for (let key in characterCollection) {
+    if (key === "data") {
+      tempArr = characterCollection[key];
+    }
+  }
+  return tempArr;
+}
+//TODO: Top Anime by critic rating
+
+
 
 
 
@@ -295,6 +390,7 @@ async function  getCategoryThriller(){
 module.exports = {
   get,
   getCharacterByName,
+  getNext20,
   getcharacterbyId,
   getTrendingAnimeList,
   getCategoryComedy,
@@ -306,5 +402,8 @@ module.exports = {
   getCategoryDrama,
   getCategoryHorror,
   getCategoryMystery,
-  getCategoryThriller
+  getCategoryThriller,
+  getAgePG,
+  getAgeR,
+  getAgeG
 };
