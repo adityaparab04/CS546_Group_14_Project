@@ -2,11 +2,12 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const chatacterData = data.character;
+const xss = require('xss');
 
 
 
 router.post("/", async (req, res) => {
-  const animeCharacter = req.body["searchTerm"];
+  const animeCharacter = xss(req.body["searchTerm"]);
   //let errors = [];
 
   if (!animeCharacter) {

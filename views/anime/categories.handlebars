@@ -1,12 +1,13 @@
 <div class="container-fluid">
 {{!-- <a class="get-home" href="/">Make another search</a> --}}
 <main>
-  {{!-- <h1 class="main-search">{{title}}</h1> --}}
-  <h3 class="character-return">Search results for: {{character}}</h3>
+  <h1 class="category">{{title}}</h1>
+  {{!-- <h3 class="character-return">Search results for: {{character}}</h3> --}}
+  <p>{{detail}}</p>
   
     <div class="row">
-      {{#if newCharacter}}
-      {{#each newCharacter}}
+      {{#if category}}
+      {{#each category}}
         <div class="col-sm-3">
             <a class="anime-item" href="/anime/{{this.id}}"><img
                 class="character-image"
