@@ -9,11 +9,13 @@ router.get("/", async (req, res) => {
     const homePage = {
       title: "Otaku Hub",
       character: getAllAnime,
+      isUserLoggedIn:req.session.user!=null?true:false
     };
     res.render("anime/home", homePage);
   } catch (e) {
     const animelData = {
       error: "Could not load",
+      isUserLoggedIn:req.session.user!=null?true:false
     };
     res.status(400);
     res.render("anime/error", animelData);

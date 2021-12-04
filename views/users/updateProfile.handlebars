@@ -1,0 +1,43 @@
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <p class="welcome">Update your profile</p>
+                <br>
+                {{#if error}}
+                <div class="alert alert-danger col-4 offset-4" role="alert">
+                    <h4 class="alert-heading">Error!</h4>
+                    <p>{{error}}</p>
+                </div>
+                {{/if}}
+
+                <form id="signup-form" method="post" action="/users/update_profile"
+                    onsubmit="return validateUpdateProfileInputs(event);">
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" id="id" name="id" value="{{user._id}}" />
+                        <p class="noPost" for="text1">Email:</p>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Your Email"
+                            value="{{user.email}}" />
+                        <br>
+                        <p class="noPost" for="text1">Age:</p>
+                        <input type="number" class="form-control" id="age" name="age" placeholder="Your Age"
+                            value="{{user.age}}" />
+                        <br>
+                        <p class="noPost" for="text1">Password:</p>
+                        <input type="password" class="form-control" id="password" name="password"
+                            placeholder="Your password" />
+                        <br>
+                        <div class="form-group">
+                            <input type="submit" class="btn AllButton btn-outline-success" value="Update" />
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+</body>
