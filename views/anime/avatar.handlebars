@@ -2,30 +2,67 @@
 <div class="container-fluid">
     {{!-- <a class="btn btn-primary" href="/" role="button">Make another search</a> --}}
     <main>
-
-<div class="row" style="color: white;">
+<div class="row">
     <div class="col-3">
             <img class="character-image" src= "{{character.attributes.posterImage.small}}" alt="{{character.attributes.canonicalTitle}}">
             
     </div>
     <div class="col-9">
+    {{#if character.attributes.canonicalTitle}}
     <h1 class="item-name">{{character.attributes.canonicalTitle}}</h3> 
+    {{else}}
+    <h1 class="item-name">Nobody</h3> 
+    {{/if}}
+    {{#if character.attributes.titles.ja_jp}}
     <h2 class="comic-header">Japanese Name:{{character.attributes.titles.ja_jp}}</h3>
+    {{else}}
+    <h2 class="comic-header">Japanese Name: N/A</h3>
+    {{/if}}
+    {{#if character.attributes.averageRating}}
     <h3>Critics Average Rating:{{character.attributes.averageRating}}</h3>
+    {{else}}
+    <h3>Critics Average Rating: N/A</h3>
+    {{/if}}
     <br><br>
     <div id="avatar-details">
-    <h4>Start Date:{{character.attributes.startDate}}</h4>
-    <h4>End Date:{{character.attributes.endDate}}</h4>
-    <h5>Age Rating:{{character.attributes.ageRating}}</h5>
-    <h5>Age Rating Guide:{{character.attributes.ageRatingGuide}}</h5>
-    <h5>Status:{{character.attributes.status}}</h5>
+    {{#if character.attributes.startDate}}
+    <h4>Start Date: {{character.attributes.startDate}}</h4>
+    {{else}}
+    <h4>Start Date: N/A</h4>
+    {{/if}}
+    {{#if character.attributes.status}}
+    <h4>Status: {{character.attributes.status}}</h4>
+    {{else}}
+    <h4>Status: N/A</h4>
+    {{/if}}
+    {{#if character.attributes.ageRating}}
+    <h5>Age Rating: {{character.attributes.ageRating}}</h5>
+    {{else}}
+    <h5>Age Rating: N/A</h5>
+    {{/if}}  
+
+    {{#if character.attributes.ageRatingGuide}}
+    <h5>Age Rating Guide: {{character.attributes.ageRatingGuide}}</h5>
+    {{else}}
+    <h5>Age Rating Guide: N/A</h5>
+    {{/if}}
+
+    {{!-- <h4>Start Date: {{character.attributes.startDate}}</h4> --}}
+    {{!-- <h4>Status: {{character.attributes.status}}</h4> --}}
+    {{!-- <h5>Age Rating: {{character.attributes.ageRating}}</h5> --}}
+    {{!-- <h5>Age Rating Guide: {{character.attributes.ageRatingGuide}}</h5> --}}
+    {{!-- <h5>Status: {{character.attributes.status}}</h5> --}}
     </div>
     </div>
     <div class="col-3">
-        <h5>Synopsis:</h5>  
+        <h5>Synopsis: </h5>  
     </div>
     <div class="col-9">
+        {{#if character.attributes.synopsis}}
         <p>{{character.attributes.synopsis}}</p>
+        {{else}}
+        <p>We're sorry, but no Synopsis were found</p>
+        {{/if}}
     </div>
 </div>
 

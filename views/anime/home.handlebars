@@ -6,11 +6,13 @@
   <div class="container text-center">
     <h1>{{title}}</h1>    
     <h2>オタクハブ</h2>  
-    <p class="page-description">Hello and welcome to Anime Club! This website provides you with information about the Anime shows and proves as a guide to new anime watchers. Now what are you waiting for? go ahead 
-    and explore the vast anime universe and become one with the Anime</p>
+    <p class="page-description">Hello and welcome to Otaku Hub the world's most active online anime community. Our goal is to provide you with information about the anime world and to connect you with other otaku head anime watchers. Now, what are you waiting for? go ahead  and Join the vast online anime community and get ready to be enlightened.</p>
   </div>
 </div>
-  <h3 class="home_top_trending">Top Trending Anime</h3>
+  <h3 class="home_top_trending">Top Trending Anime
+    <hr>
+    <p class="details"> Here is the list of the top 10 trending anime of all time. Scroll to explore more</p>
+  </h3>
   <div class="row">
     {{#if character}}
      {{#each character}}
@@ -22,44 +24,121 @@
     {{/each}}
     {{/if}}
   </div>
-  <h3 class="categories">Categories</h3>
-  <div class="category-cateloge">
+  <div>
+    <h3 class="home_top_rated">Top Rated Anime
+       <hr>
+          <p class="details">Here is the list of the all time top rated anime so you know you are in for something special</p>
+    </h3>
+  <div class="row">
+    {{#if top}}
+     {{#each top}}
+    <div class="col-sm-3">
+                <a class="anime-item" href="/anime/{{this.id}}"><img class="character-image" 
+                src= "{{this.attributes.posterImage.small}}" alt="{{this.attributes.canonicalTitle}}"></a>
+                <p>{{this.attributes.canonicalTitle}}</p>
+    </div>
+    {{/each}}
+    {{/if}}
+  </div>
+  </div>
+  <div>
+    <h3 class="ongoin_series">Ongoing Anime Series
+       <hr>
+          <p class="details">Take a look at the ongoing anime series and find out what keeps them going. </p>
+    </h3>
+    <div class="row">
+    {{#if ongoing}}
+     {{#each ongoing}}
+    <div class="col-sm-3">
+                <a class="anime-item" href="/anime/{{this.id}}"><img class="character-image" 
+                src= "{{this.attributes.posterImage.small}}" alt="{{this.attributes.canonicalTitle}}"></a>
+                <p>{{this.attributes.canonicalTitle}}</p>
+    </div>
+    {{/each}}
+    {{/if}}
+    </div>
+  </div>
+
+  <h3 class="categories">Categories
+    <hr>
+          <p class="details"> There is a flavor for everybody because everyone is built differently. There is action, comedy, sports and many more choose your calling and start your journey</p>
+  </h3>
+  <div class="category-cateloge" class="center-block">
     <div class="row">
     <div class="col-sm-2">
-      <a class="btn btn-primary" href="/comedy" role="button">COMEDY</a>
+      <a id="comedy" class="btn btn-outline-primary" href="/comedy" role="button">COMEDY</a>
     </div>
     <div class="col-sm-2">
-     <a class="btn btn-primary" href="/action" role="button">ACTION</a>
+     <a class="btn btn-outline-primary " href="/action" role="button">  ACTION  </a>
     </div>
     <div class="col-sm-2">
-      <a class="btn btn-primary" href="/adventure" role="button">ADVENTURE</a>
+      <a class="btn btn-outline-primary " href="/adventure" role="button">ADVENTURE</a>
     </div>
     <div class="col-sm-2">
-       <a class="btn btn-primary" href="/sports" role="button">SPORTS</a>
+       <a class="btn btn-outline-primary " href="/sports" role="button">SPORTS</a>
     </div>
     <div class="col-sm-2">
-      <a class="btn btn-primary" href="/fantasy" role="button">FANTASY</a>
+      <a class="btn btn-outline-primary" href="/fantasy" role="button">FANTASY</a>
     </div>
     </div>
     <div class="row" id="orderTwo">
     <div class="col-sm-2">
-      <a class="btn btn-primary" href="/drama" role="button">DRAMA</a>
+      <a class="btn btn-outline-primary " href="/drama" role="button">DRAMA</a>
     </div>
     <div class="col-sm-2">
-      <a class="btn btn-primary" href="/horror" role="button">HORROR</a>
+      <a class="btn btn-outline-primary " href="/horror" role="button">HORROR</a>
     </div>
     <div class="col-sm-2">
-      <a class="btn btn-primary" href="/mystery" role="button">MYSTERY</a>
+      <a class="btn btn-outline-primary " href="/mystery" role="button">MYSTERY</a>
     </div>
     <div class="col-sm-2">
-      <a class="btn btn-primary" href="/thriller" role="button">THRILLER</a>
+      <a class="btn btn-outline-primary" href="/thriller" role="button">THRILLER</a>
     </div>
     <div class="col-sm-2">
-      <a class="btn btn-primary" href="/magic" role="button">MAGIC</a>
+      <a class="btn btn-outline-primary " href="/magic" role="button">MAGIC</a>
     </div>
     </div>
   </div>
+  <div id="ageCategoryRating">
+    <h3 class="ageRating">Age Rating
+      <hr>
+          <p class="details"> There is anime for every age category. See what category you fall under and find what you like</p>
+    </h3>
+     
+    <div class="row">
+      <div class="col-md-4">
+        <a class="btn btn-outline-primary" href="/R" role="button">R rated</a>
+      </div>
+      <div class="col-md-4">
+         <a class="btn btn-outline-primary " href="/G" role="button">G rated</a>
+      </div>
+      <div class="col-md-4">
+         <a class="btn btn-outline-primary " href="/PG" role="button">PG rated</a>
+      </div>
+    </div>
+    </div>
   
+    <h3 class="demographic">Demographic
+      <hr>
+          <p class="details"> Explore anime targeted towards different demographics may it be for children, women, or middle-aged men there is something for everybody so join us and see what suits you</p>
+    </h3>
+    <div class="row">
+      <div class="col-sm-2">
+        <a class="btn btn-outline-primary " href="/josei" role="button">JOSEI</a>
+      </div>
+        <div class="col-sm-2">
+        <a class="btn btn-outline-primary " href="/kids" role="button">KIDS</a>
+      </div>
+        <div class="col-sm-2">
+        <a class="btn btn-outline-primary " href="/seinen" role="button">SEINEN</a>
+      </div>
+        <div class="col-sm-2">
+         <a class="btn btn-outline-primary " href="/shoujo" role="button">SHOUJO</a>
+      </div>
+        <div class="col-sm-2">
+        <a class="btn btn-outline-primary " href="/shounen" role="button">SHOUNEN</a>
+      </div>
+    </div>
   </div>
 </main>
 

@@ -6,10 +6,17 @@ const comments = data.comments;
 const animeData = require("../data/anime");
 
 async function main() {
-  const db = await connection.connectToDb();
-  await db.dropDatabase();
+  // const db = await connection.connectToDb();
+  // await db.dropDatabase();
 
-  await connection.closeConnection();
+  // await connection.closeConnection();
+
+  try{
+    const anime = await animeData.getOngoingAnime();
+    console.log(anime);
+  }catch(e){
+    console.log(e);
+  }
 }
 
 main();
