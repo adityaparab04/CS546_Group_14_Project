@@ -5,23 +5,7 @@ const data = require("../data");
 const xss = require("xss");
 const bcrypt = require('bcryptjs');
 const userFetch = data.users;
-// get First landing on home page
-// Get Either Signup or Login
-// After Sign up page loads
-// Post Sign up will be executed
-// Will go users homepage/private page where user can view his/her information
-// 
-
-
-// Home page> main page > login , sign up -> 
-// login -> after login post if invalid go to sign up
-// sign up goes to db
-//restart
-// after saving db
-// XSS
-// Middleware Authentication -> already done
-// Frontend
-// set user session and cookie -> done in post login part already
+const animeCollection = data.anime;
 
 function validateEmail(email) {
     const regexEmail = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/;
@@ -48,7 +32,7 @@ var checkvalid = async function (req) {
     if (!username) throw "You must provide a User Name"
     if (username == undefined) throw "User Name not defined"
     if (username == null || username.length == 0) throw "User Name cannot be null"
-    if (username.length < 5 || username.length > 15) throw "Enter a User Name with more than 4 and less than 15 characters"
+    if (username.length < 5 || username.length > 25) throw "Enter a User Name with more than 4 and less than 15 characters"
     if (!username.match(/^[a-z0-9_@\.]+$/)) throw "Enter a User Name only with valid characters"
 
     if (!password) throw "You must provide a password"
@@ -71,7 +55,7 @@ router.get('/login', function (req, res) {
         res.redirect('/');
     }
     else {
-        res.render('users/login', { title: "Login", msg: req.query.msg, isUserLoggedIn: req.session.user != null ? true : false });
+        res.render('users/login', { title: "Login", msg: req.query.msg, isAdmin: req.session.user && req.session.user.username.includes("admin") ? true : false, isUserLoggedIn: req.session.user != null ? true : false });
     }
 })
 
@@ -81,7 +65,7 @@ router.get('/signup', function (req, res, next) {
         res.redirect('/');
     }
     else {
-        res.render('users/signup', { title: "SignUp", isUserLoggedIn: req.session.user != null ? true : false })
+        res.render('users/signup', { title: "SignUp", isAdmin: req.session.user && req.session.user.username.includes("admin") ? true : false, isUserLoggedIn: req.session.user != null ? true : false })
     }
 })
 
@@ -100,7 +84,7 @@ router.post('/signup', async function (req, res) {
     else if (username == undefined) {
         errorMessage = "username not defined";
     }
-    else if (username.length < 5 || username.length > 15) {
+    else if (username.length < 5 || username.length > 25) {
         errorMessage = "Enter a User Name with more than 4 and less than 15 characters";
     }
     else if (!username.match(/^[a-z0-9_@\.]+$/)) {
@@ -158,14 +142,22 @@ router.post('/signup', async function (req, res) {
     }
     try {
         if (errorMessage == null) {
-            const adduser = await userFetch.createUser(req.body.username, age, req.body.password, req.body.email);
-            return res.redirect('/users/login?msg=Congratulations, you are user now');
+            if (!req.files) {
+                errorMessage = "No profile picture uploaded";
+        
+            } else {
+                let picture = req.files.picture;
+                picture.mv(`./public/pics/${username}_` + picture.name);
+                const adduser = await userFetch.createUser(req.body.username, age, req.body.password, req.body.email,`/public/pics/${username}_` + picture.name);
+                return res.redirect('/users/login?msg=Congratulations, you are user now');
+            }
         }
     } catch (e) {
         errorMessage = e;
     }
     //console.log(errorMessage);
-    res.render('users/signup', { title: "Error", error: errorMessage, isUserLoggedIn: req.session.user != null ? true : false })
+
+    res.render('users/signup', { title: "Error", error: errorMessage, isAdmin: req.session.user && req.session.user.username.includes("admin") ? true : false, isUserLoggedIn: req.session.user != null ? true : false })
 });
 
 router.post('/login', async function (req, res) {
@@ -181,7 +173,7 @@ router.post('/login', async function (req, res) {
     else if (username == undefined) {
         errorMessage = "username not defined";
     }
-    else if (username.length < 5 || username.length > 15) {
+    else if (username.length < 5 || username.length > 25) {
         errorMessage = "Enter a User Name with more than 4 and less than 15 characters";
     }
     else if (!username.match(/^[a-z0-9_@\.]+$/)) {
@@ -217,9 +209,21 @@ router.post('/login', async function (req, res) {
     res.send({ status: false, error: errorMessage });
 });
 
-router.get('/profile', function (req, res) {
+router.get('/profile', async function (req, res) {
     if (req.session.user) {
-        res.render('users/profileprivate', { title: "Information", user: req.session.user, isUserLoggedIn: req.session.user != null ? true : false })
+        let favs = [];
+        let anime = await animeCollection.getAllAmineFromDB();
+        if (anime && anime.length > 0) {
+            for (let an of anime) {
+                if (an.favUserArr.includes(req.session.user._id.toString())) {
+                    favs.push(an);
+                }
+            }
+        }
+        if (favs.length == 0) {
+            favs = null;
+        }
+        res.render('users/profileprivate', { title: "Information", favs: favs, user: req.session.user, isAdmin: req.session.user && req.session.user.username.includes("admin") ? true : false, isUserLoggedIn: req.session.user != null ? true : false })
     }
     else {
         res.redirect('/users/login?msg=Please sign in to view your profile');
@@ -230,7 +234,7 @@ router.get('/remove_profile', async function (req, res) {
     if (req.session.user) {
         await userFetch.deleteUser(req.session.user._id);
         req.session.destroy();
-        res.render('users/profileprivate', { title: "Information", msg: "Your Account has been removed", isUserLoggedIn: false });
+        res.redirect('/users/logout');
     }
     else {
         res.redirect('/users/login?msg=Please sign in to delete your account');
@@ -239,7 +243,7 @@ router.get('/remove_profile', async function (req, res) {
 
 router.get('/update_profile', function (req, res) {
     if (req.session.user) {
-        res.render('users/updateProfile', { title: "Update Profile", user: req.session.user, isUserLoggedIn: req.session.user != null ? true : false })
+        res.render('users/updateProfile', { title: "Update Profile", user: req.session.user, isAdmin: req.session.user && req.session.user.username.includes("admin") ? true : false, isUserLoggedIn: req.session.user != null ? true : false })
     }
     else {
         res.redirect('/users/login?msg=Please sign in to update your profile');
@@ -299,12 +303,13 @@ router.post('/update_profile', async function (req, res) {
         errorMessage = e;
     }
     //console.log(errorMessage);
-    res.render('/users/updateProfile', { title: "Error", error: errorMessage, user: req.session.user, isUserLoggedIn: req.session.user != null ? true : false })
+    res.render('/users/updateProfile', { title: "Error", error: errorMessage, user: req.session.user, isAdmin: req.session.user && req.session.user.username.includes("admin") ? true : false, isUserLoggedIn: req.session.user != null ? true : false })
+
 });
 
 router.get('/logout', function (req, res) {
     req.session.destroy();
-    res.render('users/logout', { Title: "Logged out", isUserLoggedIn: false })
+    res.redirect('/logout');
 });
 
 
