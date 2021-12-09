@@ -1,0 +1,48 @@
+<h2 class="text-center">Discussion Thread: Episode {{epno}}</h2>
+<div class="container mt-4" style="display: flex;flex-direction: column;align-items: flex-start;align-content: center;">
+
+    {{#if isUserLoggedIn}}
+    <div class="messaging center-block" style="align-self:center;">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <form action="/anime/add_discussion" method="post">
+                        <input type="hidden" name="epno" value="{{epno}}" />
+                        <input type="hidden" name="animeId" value="{{animeId}}" />
+                        <div style="display: flex;">
+                            <input type="text" name="text" placeholder="your message ..." class="form-control" required>
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary" type="button">Send</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+
+    {{#if discussions}}
+    {{#each discussions}}
+    {{#if this.isMine}}
+    <div class="message-candidate-self center-block" style="align-self: flex-start;">
+        <h4 class="message-name">{{this.user.username}}</h4>
+        <div> {{this.date}}</div>
+        <div class="row message-text">
+            {{this.text}}
+        </div>
+    </div>
+    {{else}}
+    <div class="message-candidate center-block" style="align-self: flex-end;">
+        <h4 class="message-name">{{this.user.username}}</h4>
+        <div> {{this.date}}</div>
+        <div class="row message-text">
+            {{this.text}}
+        </div>
+    </div>
+    {{/if}}
+    {{/each}}
+    {{else}}
+    <h2>No Discussion yet.</h2>
+    {{/if}}
+</div>

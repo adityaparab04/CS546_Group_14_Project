@@ -20,7 +20,7 @@ let exportedMethods = {
             userId: userId,
             content: content,
             date: new Date().toLocaleDateString()
-        }
+        };
         let insertInfo = await commentCollection.insertOne(newComment);
         if (insertInfo === null)
             throw `Something wrong when adding the comment`;
@@ -32,7 +32,6 @@ let exportedMethods = {
 
         return commentCreated;
     },
-
     async getCommentById(commentId){
         if (!commentId || typeof commentId !== "string")
         throw `You must provide an id to search for`;
@@ -49,7 +48,16 @@ let exportedMethods = {
         let allComments = await commentCollection.find({}).toArray();
         return allComments;
     },
-
+    async getAllCommentsOfAReview(reviewId){
+        let commentCollection = await comments();
+        let allComments = await commentCollection.find({reviewId:reviewId}).toArray();
+        return allComments;
+    },
+    async getAllCommentsOfAUser(userId){
+        let commentCollection = await comments();
+        let allComments = await commentCollection.find({userId}).toArray();
+        return allComments;
+    },
     async removeComments(reviewId, commentId){
         if (!reviewId || typeof reviewId !== "string")
             throw `you should input a string as the reviewId`;
@@ -59,7 +67,7 @@ let exportedMethods = {
         await reviewCollection.removeCommentIdFromReview(reviewId, commentId);
         let parseId = ObjectId(commentId);
         let commentCollection = await comments();
-        let deletionInfo = await commentCollection.removeOne({ _id: parseId });
+        let deletionInfo = await commentCollection.deleteOne({ "_id": ObjectId(commentId) });
         if (deletionInfo.deletedCount === 0) {
             throw `Could not delete the comment`;
         }
