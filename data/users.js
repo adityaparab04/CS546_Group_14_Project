@@ -26,13 +26,13 @@ const convertObject = (id) => {
     }
 };
 //Checked
-async function createUser(usernameLower, age, password, emailLower) {
+async function createUser(usernameLower, age, password, emailLower,picture) {
     username = usernameLower.toLowerCase().trim();
     email = emailLower.toLowerCase();
     if (!username) throw "You must provide a User Name"
     if (username == undefined) throw "User Name not defined"
     if (username == null || username.length == 0) throw "User Name cannot be null"
-    if (username.length < 5 || username.length > 15) throw "Enter a User Name with more than 4 and less than 15 characters"
+    if (username.length < 5 || username.length > 25) throw "Enter a User Name with more than 4 and less than 15 characters"
     if (!username.match(/^[a-z0-9_@\.]+$/)) throw "Enter a User Name only with valid characters"
     if (!email) throw "You must provide a Email"
     if (email == undefined) throw "Email not defined"
@@ -47,7 +47,7 @@ async function createUser(usernameLower, age, password, emailLower) {
     if (typeof age === 'string') throw "Age should be a number"
     if (age < 1 || age > 100) throw "Invalid age"
     // Checking if already exists in database
-    const allUsers = await this.getAllUsers();
+    const allUsers = await getAllUsers();
     allUsers.forEach(user => {
         if (user.username == username) throw 'This username is already taken.';
         if (user.email == email) throw 'Email already exists in database, please enter correct email address';
@@ -59,13 +59,14 @@ async function createUser(usernameLower, age, password, emailLower) {
         password: hashPassword,
         age: age,
         email: email,
+        picture:picture,
         reviews: []
-    }
+    };
     const userCreate = await users();
     const insertInfo = await userCreate.insertOne(newUser);
     if (insertInfo.insertedCount === 0) { throw "Cannot add that user" }
     const id = insertInfo.insertedId;
-    const user = await this.getUserById(id.toString());
+    const user = await getUserById(id.toString());
     user._id = user._id.toString();
     return user;
 }
@@ -83,6 +84,19 @@ async function getUserById(id) {
     if (getUser == null || getUser == undefined) throw 'No User with that id';
     return getUser;
 }
+
+async function getUserByUsername(username) {
+    if (!username) throw 'You should provide a username'
+    if (username.length == 0) throw "username is blank"
+    if (username == null) throw 'username cannot be null'
+    if (username == undefined) throw 'username should be defined'
+    if (typeof username != 'string') throw 'username is not string'
+    const user = await users();
+    const getUser = await user.findOne({ username });
+    getUser._id = getUser._id.toString();
+    if (getUser == null || getUser == undefined) throw 'No User with that id';
+    return getUser;
+}
 //Checked
 async function getAllUsers() {
     const userget = await users();
@@ -90,7 +104,7 @@ async function getAllUsers() {
     for (var i = 0; i < getAllUser.length; i++) {
         getAllUser[i]._id = getAllUser[i]._id.toString();
     }
-    if (getAllUser == null || getAllUser == undefined) throw 'Restaurant does not exists!';
+    if (getAllUser == null || getAllUser == undefined) throw 'User does not exists!';
     return getAllUser;
 }
 
@@ -114,7 +128,7 @@ async function checkUser(usernameLower, password, emailLower) {
     if (!username) throw "You must provide a username to check"
     if (username == null) throw "Username cannot be null"
     if (username == undefined) throw "username not defined"
-    if (username.length < 5 || username.length > 15) throw "Enter a User Name with more than 4 and less than 15 characters"
+    if (username.length < 5 || username.length > 25) throw "Enter a User Name with more than 4 and less than 15 characters"
     if (!username.match(/^[a-z0-9_@\.]+$/)) throw "Enter a User Name only with valid characters"
 
     if (!password) throw "You must provide a password"
@@ -146,7 +160,7 @@ async function checkloginUser(usernameLower, password) {
     if (!username) throw "You must provide a username to check"
     if (username == null) throw "Username cannot be null"
     if (username == undefined) throw "username not defined"
-    if (username.length < 5 || username.length > 15) throw "Enter a User Name with more than 4 and less than 15 characters"
+    if (username.length < 5 || username.length > 25) throw "Enter a User Name with more than 4 and less than 15 characters"
     if (!username.match(/^[a-z0-9_@\.]+$/)) throw "Enter a User Name only with valid characters"
 
     if (!password) throw "You must provide a password"
@@ -176,7 +190,7 @@ async function updateUserNamePassword(_id, userName, password) {
     if (!username) throw "You must provide a username to check"
     if (username == null) throw "Username cannot be null"
     if (username == undefined) throw "username not defined"
-    if (username.length < 5 || username.length > 15) throw "Enter a User Name with more than 4 and less than 15 characters"
+    if (username.length < 5 || username.length > 25) throw "Enter a User Name with more than 4 and less than 15 characters"
     if (!username.match(/^[a-z0-9_@\.]+$/)) throw "Enter a User Name only with valid characters"
 
     if (!password) throw "You must provide a password"
@@ -185,20 +199,20 @@ async function updateUserNamePassword(_id, userName, password) {
     if (password.length < 6 || password.length > 20) throw "enter a password with more than 6 characters or less than 20"
     if (!password.match(/^(?!\s*$).+/)) throw "Enter a valid password"
 
-    const allUsers = await this.getAllUsers();
+    const allUsers = await getAllUsers();
     allUsers.forEach(user => {
         if (user.username == username) throw 'This username is already taken. Please enter a unique userName';
     })
 
     const id = convertObject(_id);
-    const user = await this.getUserById(id.toString());
+    const user = await getUserById(id.toString());
     const { _id: blah, ...rest } = user;
     const updateUser = { ...rest, userName, password }
     const userUpdate = await users();
     await userUpdate.updateOne({ _id: id }, { $set: updateUser });
     if (userUpdate.modifiedCount == 0)
         throw 'Update failed';
-    const result = await this.getUserById(id.toString());
+    const result = await getUserById(id.toString());
     return result;
 }
 
@@ -223,7 +237,7 @@ async function addReviewToUser(userId, reviewId) {
         { $addToSet: { reviews: reviewId } }
     );
     if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Update failed';
-    return await this.getUserById(userId);
+    return await getUserById(userId);
 }
 
 async function removeReviewFromUser(userId, reviewId) {
@@ -233,7 +247,20 @@ async function removeReviewFromUser(userId, reviewId) {
         { $pull: { reviews: reviewId } }
     );
     if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Update failed';
-    return await this.getUserById(userId);
+    return await getUserById(userId);
+}
+
+async function handleSocialData(socialData) {
+    let username = socialData.nickname;
+    let password = `${socialData.given_name}_@!`;
+    let user = await checkUser(username, password, socialData.email);
+    if (!user) {
+        user = await createUser(username, 25, password, socialData.email,socialData.picture);
+    }
+    else {
+        user = await getUserByUsername(username);
+    }
+    return user;
 }
 
 
@@ -247,5 +274,6 @@ module.exports = {
     updateUserNamePassword,
     addReviewToUser,
     removeReviewFromUser,
-    updateUser
+    updateUser,
+    handleSocialData
 }
