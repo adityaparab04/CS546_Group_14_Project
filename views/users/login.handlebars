@@ -1,0 +1,28 @@
+<div class="container col-3 mt-3 text-center">
+
+    <div id="error-div" style="display: none;" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Error!</h4>
+        <p id="error-line"></p>
+    </div>
+    {{#if msg}}
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Message!</h4>
+        <p>{{msg}}</p>
+    </div>
+    {{/if}}
+    <h1 class="h3 mb-3 fw-normal">Enter your details to signin!!</h1>
+
+    <form method="POST" action="/users/login" id="login-form" onsubmit="return validateSignInInputs(event)">
+        <label class="sr-only" for="username">Username</label>
+        <input class="form-control rounded-0" type="text" id="username" name="username" placeholder="Username">
+        <label class="sr-only" for="password">Password</label>
+        <input class="form-control mb-4 rounded-0" type="password" id="password" name="password" placeholder="Password">
+        <div class="invalid-feedback mb-3">
+            Username and/or passsword cannot be empty
+        </div>
+        <button type="submit" name="submitButton" id="submitButton" class="btn btn-primary w-100">Sign In</button>
+        {{#each errors}}
+        <div class="error font-italic" id="errors">{{this}}</div>
+        {{/each}}
+    </form>
+</div>

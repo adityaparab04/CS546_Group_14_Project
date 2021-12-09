@@ -1,28 +1,27 @@
 <div class="container-fluid">
-
 <main>
-
-  <div class="jumbotron">
-  <div class="container text-center">
-    <h1>{{title}}</h1>    
-    <h2>オタクハブ</h2>  
-    <p class="page-description">Hello and welcome to Anime Club! This website provides you with information about the Anime shows and proves as a guide to new anime watchers. Now what are you waiting for? go ahead 
-    and explore the vast anime universe and become one with the Anime</p>
-  </div>
-</div>
-  <h3 class="home_top_trending">Top Trending Anime</h3>
-  <div class="row">
-    {{#if character}}
-     {{#each character}}
-    <div class="col-sm-3">
-                <a class="anime-item" href="/anime/{{this.id}}"><img class="character-image" 
-                src= "{{this.attributes.posterImage.small}}" alt="{{this.attributes.canonicalTitle}}"></a>
-                <p>{{this.attributes.canonicalTitle}}</p>
+  <h1 class="category">{{title}}</h1>
+  <p>{{detail}}</p>
+  
+    <div class="row">
+      {{#if category}}
+      {{#each category}}
+        <div class="col-sm-3">
+            <a class="anime-item" href="/anime/{{this.id}}"><img
+                class="character-image"
+                src="{{this.attributes.posterImage.small}}"
+                alt="{{this.attributes.canonicalTitle}}"
+              />
+              </a>
+              <p>{{this.attributes.canonicalTitle}}</p>
+        </div>
+        {{/each}}
+      {{else}}
+        <p class="not-found">We're sorry, but no results were found for
+          {{character}}.</p>
+      {{/if}}
     </div>
-    {{/each}}
-    {{/if}}
-  </div>
-  <h3 class="categories">Categories</h3>
+    <h3 class="categories">Categories</h3>
   <div class="category-cateloge">
     <div class="row">
     <div class="col-sm-2">
@@ -59,7 +58,6 @@
     </div>
     </div>
   </div>
-  
-  </div>
+ 
 </main>
-
+ </div>

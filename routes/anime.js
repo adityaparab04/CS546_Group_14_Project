@@ -9,6 +9,7 @@ router.get("/:id", async (req, res) => {
     //errors.push("You must provide an id to search for" );
     const animeData = {
       error: "You must provide an id to search for",
+      isUserLoggedIn:req.session.user!=null?true:false
     };
     res.status(400);
     res.render("anime/error", animeData);
@@ -18,6 +19,7 @@ router.get("/:id", async (req, res) => {
     //errors.push("No id provided");
     const animeData = {
       error: "No id provided",
+      isUserLoggedIn:req.session.user!=null?true:false
     };
     res.status(400);
     res.render("anime/error", animeData);
@@ -27,6 +29,7 @@ router.get("/:id", async (req, res) => {
     //errors.push("The ID provided is not of type string" );
     const animeData = {
       error: "The ID provided is not of type string",
+      isUserLoggedIn:req.session.user!=null?true:false
     };
     res.status(400);
     res.render("anime/error", animeData);
@@ -38,12 +41,14 @@ router.get("/:id", async (req, res) => {
     const animeCharacter = {
       // title: characterID.name,
       character: characterID,
-      title: characterID.attributes.canonicalTitle
+      title: characterID.attributes.canonicalTitle,
+      isUserLoggedIn:req.session.user!=null?true:false
   };
     res.render('anime/avatar',animeCharacter);
   } catch (e) {
     const animeData = {
       error: "character not found",
+      isUserLoggedIn:req.session.user!=null?true:false
     };
     res.status(404);
     res.render("anime/error", animeData);
