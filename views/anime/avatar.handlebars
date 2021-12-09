@@ -1,36 +1,191 @@
-
 <div class="container-fluid">
-    {{!-- <a class="btn btn-primary" href="/" role="button">Make another search</a> --}}
-    <main>
+    {{#if msg}}
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Message!</h4>
+        <p style="color: inherit;">{{msg}}</p>
+    </div>
+    {{/if}}
+    <div class="p-4 p-md-5 mb-4 mt-4 text-white rounded bg-dark" style="display: flex;">
+        <div class="col-3"
+            style="display: flex;align-items: center;justify-content: center;align-content: center;flex-direction: column;">
+            <img class="character-image" src="{{character.attributes.posterImage.small}}"
+                alt="{{character.attributes.canonicalTitle}}" />
+            {{#if isReleased}}
+            {{#if isUserLoggedIn}}
+            <button class="btn btn-outline-warning m-2" data-bs-toggle="modal" data-bs-target="#exampleModal"> Write
+                Review</button>
+            {{#if markedAsFav}}
+            <button class="btn btn-outline-success m-2"
+                onclick="window.location.href='/anime/remove_favorite/{{character.id}}'"> Remove from Favorite</button>
 
-<div class="row" style="color: white;">
-    <div class="col-3">
-            <img class="character-image" src= "{{character.attributes.posterImage.small}}" alt="{{character.attributes.canonicalTitle}}">
-            
-    </div>
-    <div class="col-9">
-    <h1 class="item-name">{{character.attributes.canonicalTitle}}</h3> 
-    <h2 class="comic-header">Japanese Name:{{character.attributes.titles.ja_jp}}</h3>
-    <h3>Critics Average Rating:{{character.attributes.averageRating}}</h3>
-    <br><br>
-    <div id="avatar-details">
-    <h4>Start Date:{{character.attributes.startDate}}</h4>
-    <h4>End Date:{{character.attributes.endDate}}</h4>
-    <h5>Age Rating:{{character.attributes.ageRating}}</h5>
-    <h5>Age Rating Guide:{{character.attributes.ageRatingGuide}}</h5>
-    <h5>Status:{{character.attributes.status}}</h5>
-    </div>
-    </div>
-    <div class="col-3">
-        <h5>Synopsis:</h5>  
-    </div>
-    <div class="col-9">
-        <p>{{character.attributes.synopsis}}</p>
-    </div>
-</div>
+            {{else}}
+            <button class="btn btn-outline-success m-2"
+                onclick="window.location.href='/anime/favorite/{{character.id}}'">
+                Mark As Favorite</button>
+            {{/if}}
+
+            {{/if}}
+            {{/if}}
+
+            {{#if isReleased}}
+            <button class="btn btn-outline-info m-2" data-bs-toggle="modal" data-bs-target="#discModal">
+                Episode Discussion Threads</button>
+            {{/if}}
+        </div>
+        <div class="col-4">
+            <h1>Japanese Name:{{character.attributes.titles.ja_jp}}</h1>
+            <h1 class="display-4 fst-italic">{{character.attributes.canonicalTitle}}</h1>
+            <h3 class="comic-header"></h3>
+            <h3>Critics Average Rating:{{character.attributes.averageRating}}</h3>
+            <br>
+            <h3>Start Date:{{character.attributes.startDate}}</h3>
+            <h3>End Date:{{character.attributes.endDate}}</h3>
+            <h4>Age Rating:{{character.attributes.ageRating}}</h4>
+            <h4>Age Rating Guide:{{character.attributes.ageRatingGuide}}</h4>
+            <h4>Status:{{character.attributes.status}}</h4>
+        </div>
+        <div class="col-4">
+            <h1>Synopsis:</h1>
+            <p>{{character.attributes.synopsis}}</p>
+            {{#if isReleased}}
+            <h2>Avg User Rating: {{avgRating}}</h2>
+            {{/if}}
+            {{#if isReleased}}
+
+            {{#if isUserLoggedIn}}
+            {{#if showRatingForm}}
+
+            <form method="post" action="/anime/rating">
+                <input type="hidden" id="animeId" name="animeId" value="{{character.id}}">
+                <label>Give Rating:</label>
+                <select class="form-input" name="rating" id="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <input class="btn btn-primary" type="submit" value="Post" />
+            </form>
+            {{else}}
+            <h2>Your Rating: {{userProvidedRating}}</h2>
+            {{/if}}
+            {{/if}}
+            {{/if}}
 
 
-  </div>
 
-</main>
+        </div>
+
+    </div>
+    {{#if reviews}}
+    <div class="row mb-2 text-white">
+        {{#each reviews}}
+        <div class="col-md-6">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <div style="display: flex;align-items: center;">
+                        <img src="{{this.user.picture}}" class="img-thumbnail"
+                            style="width: 50px;height:50px;margin:10px;">
+                        <strong class="d-inline-block mb-2">{{this.user.username}}'s Review</strong>
+                    </div>
+
+                    <div class="mb-1 text-muted">{{this.date}}</div>
+
+                    {{#if this.showCommentInput}}
+                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                        <button type="button" class="btn btn-outline-primary"
+                            onclick="window.location.href='/reviews/like?reviewId={{this._id}}&anime_id={{this.animeId}}'"><i
+                                class="fa fa-thumbs-up"></i>{{this.noOfLikes}}</button>
+                        <button type="button" class="btn btn-outline-danger"
+                            onclick="window.location.href='/reviews/dislike?reviewId={{this._id}}&anime_id={{this.animeId}}'"><i
+                                class="fa fa-thumbs-down">{{this.noOfDislikes}}</i></button>
+                    </div>
+                    {{else}}
+                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                        <button type="button" class="btn btn-outline-primary"><i
+                                class="fa fa-thumbs-up"></i>{{this.noOfLikes}}</button>
+                        <button type="button" class="btn btn-outline-danger"><i
+                                class="fa fa-thumbs-down">{{this.noOfDislikes}}</i></button>
+                    </div>
+                    {{/if}}
+
+                    <p class="card-text mb-auto"><q>{{this.content}}</q></p>
+                    <strong class="d-inline-block mb-2">Comments:</strong>
+                    {{#if this.comments}}
+                    {{#each this.comments}}
+                    <div class="alert alert-info">
+                        <strong>{{this.user.username}} :</strong> {{this.content}}
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    <p>No comments yet</p>
+                    {{/if}}
+                    {{#if this.showCommentInput}}
+                    <form method="post" action="/comments/create">
+                        <input type="hidden" name="reviewId" value="{{this._id}}" />
+                        <input type="hidden" name="animeId" value="{{this.animeId}}" />
+                        <input type="text" style="width: 100%;" class="mb-2" name="content"
+                            placeholder="Type your comment" required />
+                        <br>
+                        <button type="submit" class="btn btn-primary"> Post </button>
+                    </form>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+    </div>
+    {{/if}}
+
+
+    {{#if isUserLoggedIn}}
+
+    <div class="modal fade bg-dark" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Write a review</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/reviews/create" method="post">
+                        <input type="hidden" id="anime_id" name="anime_id" value="{{character.id}}" />
+                        <div class="mb-3">
+                            <label for="review" class="form-label">Your Review</label>
+                            <textarea rows="10" class="form-control" id="review" name="review"
+                                required>This anime is ...</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+
+
+    <div class="modal fade bg-dark" id="discModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-dark">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: inherit;">Episodic Discussion Threads
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form onsubmit="return goToDiscussion(event)">
+                        <input type="hidden" id="anime_id_dis" name="anime_id" value="{{character.id}}" />
+                        <div class="mb-3">
+                            <label for="epno" class="form-label">Episode No:</label>
+                            <input type="number" class="form-control" id="epno_dis" name="epno" required />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Go</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
