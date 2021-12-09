@@ -63,6 +63,7 @@ footer {
   background-color: darkblue;
   padding: 25px;
   height: 80px;
+  margin-top: 20px;
 }
 .footer-text {
   color: white;
@@ -78,22 +79,23 @@ footer {
 }
 
 .jumbotron {
+  margin-top: 10px;
   background-color: blueviolet;
   border-radius: 8px;
 }
 
 .home_top_trending {
-  border-left: 10px solid red;
+  border-left: 10px solid blue;
   text-align: start;
-  background-color: #901100;
+  background-color: #6363f5;
   border-radius: 8px;
   margin-bottom: 5px;
 }
 
 .categories {
-  border-left: 10px solid red;
+  border-left: 10px solid blue;
   text-align: start;
-  background-color: #901100;
+  background-color: #6363f5;
   border-radius: 8px;
   margin-bottom: 10px;
   margin-top: 5%;
@@ -133,6 +135,54 @@ body > footer {
   color: white !important;
 }
 
+.ageRating{
+  border-left: 10px solid blue;
+  text-align: start;
+  background-color: #6363f5;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.home_top_rated{
+  border-left: 10px solid blue;
+  text-align: start;
+  background-color: #6363f5;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+/* #comedy{
+  width: 100px;
+} */
+
+.demographic {
+  border-left: 10px solid blue;
+  text-align: start;
+  background-color: #6363f5;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.ongoin_series{
+  border-left: 10px solid blue;
+  text-align: start;
+  background-color: #6363f5;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.details{
+  text-align: center;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
 .login-link{
   text-align: center;
   color: purple;

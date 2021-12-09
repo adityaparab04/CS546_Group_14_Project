@@ -1,4 +1,57 @@
 <div class="container-fluid">
+    {{!-- <a class="btn btn-primary" href="/" role="button">Make another search</a> --}}
+    {{!-- <main>
+<div class="row">
+    <div class="col-3">
+            <img class="character-image" src= "{{character.attributes.posterImage.small}}" alt="{{character.attributes.canonicalTitle}}">
+            
+    </div>
+    <div class="col-9"> --}}
+    {{!-- {{#if character.attributes.canonicalTitle}}
+    <h1 class="item-name">{{character.attributes.canonicalTitle}}</h3> 
+    {{else}}
+    <h1 class="item-name">Nobody</h3> 
+    {{/if}} --}}
+    
+    {{!-- {{#if character.attributes.titles.ja_jp}}
+    <h2 class="comic-header">Japanese Name:{{character.attributes.titles.ja_jp}}</h3>
+    {{else}}
+    <h2 class="comic-header">Japanese Name: N/A</h3>
+    {{/if}} --}}
+    {{!-- {{#if character.attributes.averageRating}}
+    <h3>Critics Average Rating:{{character.attributes.averageRating}}</h3>
+    {{else}}
+    <h3>Critics Average Rating: N/A</h3>
+    {{/if}} --}}
+    {{!-- <br><br>
+    <div id="avatar-details"> --}}
+    {{!-- {{#if character.attributes.startDate}}
+    <h4>Start Date: {{character.attributes.startDate}}</h4>
+    {{else}}
+    <h4>Start Date: N/A</h4>
+    {{/if}} --}}
+    {{!-- {{#if character.attributes.status}}
+    <h4>Status: {{character.attributes.status}}</h4>
+    {{else}}
+    <h4>Status: N/A</h4>
+    {{/if}} --}}
+    {{!-- {{#if character.attributes.ageRating}}
+    <h5>Age Rating: {{character.attributes.ageRating}}</h5>
+    {{else}}
+    <h5>Age Rating: N/A</h5>
+    {{/if}}   --}}
+
+    {{!-- {{#if character.attributes.ageRatingGuide}}
+    <h5>Age Rating Guide: {{character.attributes.ageRatingGuide}}</h5>
+    {{else}}
+    <h5>Age Rating Guide: N/A</h5>
+    {{/if}} --}}
+
+    {{!-- <h4>Start Date: {{character.attributes.startDate}}</h4> --}}
+    {{!-- <h4>Status: {{character.attributes.status}}</h4> --}}
+    {{!-- <h5>Age Rating: {{character.attributes.ageRating}}</h5> --}}
+    {{!-- <h5>Age Rating Guide: {{character.attributes.ageRatingGuide}}</h5> --}}
+    {{!-- <h5>Status: {{character.attributes.status}}</h5> --}}
     {{#if msg}}
     <div class="alert alert-success" role="alert">
         <h4 class="alert-heading">Message!</h4>
@@ -33,20 +86,61 @@
             {{/if}}
         </div>
         <div class="col-4">
-            <h1>Japanese Name:{{character.attributes.titles.ja_jp}}</h1>
-            <h1 class="display-4 fst-italic">{{character.attributes.canonicalTitle}}</h1>
+            {{!-- <h1>Japanese Name:{{character.attributes.titles.ja_jp}}</h1> --}}
+    {{#if character.attributes.titles.ja_jp}}
+    <h1 class="comic-header">Japanese Name:{{character.attributes.titles.ja_jp}}</h1>
+    {{else}}
+    <h1 class="comic-header">Japanese Name: N/A</h1>
+    {{/if}}
+            {{!-- <h1 class="display-4 fst-italic">{{character.attributes.canonicalTitle}}</h1> --}}
+            {{#if character.attributes.canonicalTitle}}
+    <h1 class="display-4 fst-italic">{{character.attributes.canonicalTitle}}</h3> 
+    {{else}}
+    <h1 class="display-4 fst-italic">Nobody</h3> 
+    {{/if}}
             <h3 class="comic-header"></h3>
-            <h3>Critics Average Rating:{{character.attributes.averageRating}}</h3>
+            {{!-- <h3>Critics Average Rating:{{character.attributes.averageRating}}</h3> --}}
+              {{#if character.attributes.averageRating}}
+    <h3>Critics Average Rating:{{character.attributes.averageRating}}</h3>
+    {{else}}
+    <h3>Critics Average Rating: N/A</h3>
+    {{/if}}
             <br>
-            <h3>Start Date:{{character.attributes.startDate}}</h3>
-            <h3>End Date:{{character.attributes.endDate}}</h3>
-            <h4>Age Rating:{{character.attributes.ageRating}}</h4>
-            <h4>Age Rating Guide:{{character.attributes.ageRatingGuide}}</h4>
-            <h4>Status:{{character.attributes.status}}</h4>
+            {{!-- <h3>Start Date:{{character.attributes.startDate}}</h3> --}}
+            {{#if character.attributes.startDate}}
+    <h3>Start Date: {{character.attributes.startDate}}</h3>
+    {{else}}
+    <h3>Start Date: N/A</h3>
+    {{/if}}
+            {{!-- <h3>End Date:{{character.attributes.endDate}}</h3> --}}
+            {{!-- <h4>Age Rating:{{character.attributes.ageRating}}</h4> --}}
+            {{#if character.attributes.ageRating}}
+    <h4>Age Rating: {{character.attributes.ageRating}}</h4>
+    {{else}}
+    <h4>Age Rating: N/A</h4>
+    {{/if}}  
+            {{!-- <h4>Age Rating Guide:{{character.attributes.ageRatingGuide}}</h4> --}}
+            {{#if character.attributes.ageRatingGuide}}
+    <h4>Age Rating Guide: {{character.attributes.ageRatingGuide}}</h4>
+    {{else}}
+    <h4>Age Rating Guide: N/A</h4>
+    {{/if}}
+
+            {{!-- <h4>Status:{{character.attributes.status}}</h4> --}}
+            {{#if character.attributes.status}}
+    <h4>Status: {{character.attributes.status}}</h4>
+    {{else}}
+    <h4>Status: N/A</h4>
+    {{/if}}
         </div>
         <div class="col-4">
             <h1>Synopsis:</h1>
-            <p>{{character.attributes.synopsis}}</p>
+            {{!-- <p>{{character.attributes.synopsis}}</p> --}}
+            {{#if character.attributes.synopsis}}
+        <p>{{character.attributes.synopsis}}</p>
+        {{else}}
+        <p>We're sorry, but no Synopsis were found</p>
+        {{/if}}
             {{#if isReleased}}
             <h2>Avg User Rating: {{avgRating}}</h2>
             {{/if}}
@@ -78,6 +172,7 @@
         </div>
 
     </div>
+
     {{#if reviews}}
     <div class="row mb-2 text-white">
         {{#each reviews}}

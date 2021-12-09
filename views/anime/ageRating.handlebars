@@ -1,0 +1,48 @@
+<div class="container-fluid">
+  <main>
+    <h1 class="category">{{title}}</h1>
+
+    <div class="jumbotron">
+      <div class="container text-center">
+        <p>{{detail}}</p>
+      </div>
+    </div>
+
+    <div class="row">
+      {{#if category}}
+        {{#each category}}
+          <div class="col-sm-3">
+            <a class="anime-item" href="/anime/{{this.id}}"><img
+                class="character-image"
+                src="{{this.attributes.posterImage.small}}"
+                alt="{{this.attributes.canonicalTitle}}"
+              />
+            </a>
+            <p>{{this.attributes.canonicalTitle}}</p>
+          </div>
+        {{/each}}
+      {{else}}
+        <p class="not-found">We're sorry, but no results were found for
+          {{character}}.</p>
+      {{/if}}
+    </div>
+    <div id="ageCategoryRating">
+      <h3 class="ageRating">Age Rating</h3>
+      <div class="row">
+        <div class="col-md-4">
+          <a class="btn btn-outline-primary btn-lg" href="/R" role="button">R
+            rated</a>
+        </div>
+        <div class="col-md-4">
+          <a class="btn btn-outline-primary btn-lg" href="/G" role="button">G
+            rated</a>
+        </div>
+        <div class="col-md-4">
+          <a class="btn btn-outline-primary btn-lg" href="/PG" role="button">PG
+            rated</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>

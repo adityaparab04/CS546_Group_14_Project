@@ -55,40 +55,6 @@ async function getCharacterByName(animeName) {
 
   return tempArr;
 }
-//*get next row of characters in the search field
-
-async function getNameNext20(name) {
-  const url = baseUrl + "/anime?filter[text]=" + name+"&page[limit]=20&page[offset]=20";
-  const { data } = await axios.get(url);
-  return data;
-}
-
-async function getNext20(animeName) {
-  if (arguments.length !== 1) {
-    throw "Arguments provided not satisfied";
-  }
-  if (!animeName) {
-    throw "please provide a character";
-  }
-  if (animeName.trim() === "") {
-    throw "character is empty";
-  }
-
-  if (typeof animeName !== "string") {
-    throw "Character is not of type string";
-  }
-
-  const characterCollection = await getNameNext20(animeName.trim());
-  let tempArr = [];
-  //tempArr = characterCollection.data;
-  for (let key in characterCollection) {
-    if (key === "data") {
-      tempArr = characterCollection[key];
-    }
-  }
-
-  return tempArr;
-}
 
 
 //*get character by id 
@@ -380,17 +346,134 @@ async function  getAgeG(){
   return tempArr;
 }
 //TODO: Top Anime by critic rating
+async function getAnimeRating() {
+  const mainUrl = baseUrl + "/anime?filter[averageRating]=83..100&page[limit]=20";
+  const { data } = await axios.get(mainUrl);
+  return data;
+}
 
+async function  getAnimeByRating(){
+  const characterCollection = await getAnimeRating();
+  let tempArr = undefined;
+  for (let key in characterCollection) {
+    if (key === "data") {
+      tempArr = characterCollection[key];
+    }
+  }
+  return tempArr;
+}
 
+//* Get anime by demographic
+//?get anime Josei
+async function getJosei() {
+  const mainUrl = baseUrl + "/anime?filter[categories]=josei&page[limit]=20&page[offset]=20";
+  const { data } = await axios.get(mainUrl);
+  return data;
+}
 
+async function  getDemographicJosei(){
+  const characterCollection = await getJosei();
+  let tempArr = undefined;
+  for (let key in characterCollection) {
+    if (key === "data") {
+      tempArr = characterCollection[key];
+    }
+  }
+  return tempArr;
+}
+//?get anime Kids 
+async function getKids() {
+  const mainUrl = baseUrl + "/anime?filter[categories]=kids&page[limit]=20&page[offset]=20";
+  const { data } = await axios.get(mainUrl);
+  return data;
+}
 
+async function  getDemographicKids(){
+  const characterCollection = await getKids();
+  let tempArr = undefined;
+  for (let key in characterCollection) {
+    if (key === "data") {
+      tempArr = characterCollection[key];
+    }
+  }
+  return tempArr;
+}
+//?get anime Seinen
+async function getSeinen() {
+  const mainUrl = baseUrl + "/anime?filter[categories]=seinen&page[limit]=20&page[offset]=20";
+  const { data } = await axios.get(mainUrl);
+  return data;
+}
+
+async function  getDemographicSeinen(){
+  const characterCollection = await getSeinen();
+  let tempArr = undefined;
+  for (let key in characterCollection) {
+    if (key === "data") {
+      tempArr = characterCollection[key];
+    }
+  }
+  return tempArr;
+}
+//?get anime Shoujo
+async function getShoujo() {
+  const mainUrl = baseUrl + "/anime?filter[categories]=shoujo&page[limit]=20&page[offset]=20";
+  const { data } = await axios.get(mainUrl);
+  return data;
+}
+
+async function  getDemographicShoujo(){
+  const characterCollection = await getShoujo();
+  let tempArr = undefined;
+  for (let key in characterCollection) {
+    if (key === "data") {
+      tempArr = characterCollection[key];
+    }
+  }
+  return tempArr;
+}
+//? get anime Shounen
+
+async function getShounen() {
+  const mainUrl = baseUrl + "/anime?filter[categories]=shounen&page[limit]=20&page[offset]=20";
+  const { data } = await axios.get(mainUrl);
+  return data;
+}
+
+async function  getDemographicShounen(){
+  const characterCollection = await getShounen();
+  let tempArr = undefined;
+  for (let key in characterCollection) {
+    if (key === "data") {
+      tempArr = characterCollection[key];
+    }
+  }
+  return tempArr;
+}
+
+//?The landing page displays the list of ongoing anime series.
+async function getOngoing() {
+  const mainUrl = baseUrl + "/anime?filter[status]=current&page[limit]=16&page[offset]=40";
+  const { data } = await axios.get(mainUrl);
+  return data;
+}
+
+async function  getOngoingAnime(){
+  const characterCollection = await getOngoing();
+  let tempArr = undefined;
+  for (let key in characterCollection) {
+    if (key === "data") {
+      tempArr = characterCollection[key];
+    }
+  }
+  return tempArr;
+}
 
 
 
 module.exports = {
   get,
   getCharacterByName,
-  getNext20,
   getcharacterbyId,
   getTrendingAnimeList,
   getCategoryComedy,
@@ -405,5 +488,12 @@ module.exports = {
   getCategoryThriller,
   getAgePG,
   getAgeR,
-  getAgeG
+  getAgeG,
+  getAnimeByRating,
+  getDemographicJosei,
+  getDemographicKids,
+  getDemographicSeinen,
+  getDemographicShoujo,
+  getDemographicShounen,
+  getOngoingAnime
 };

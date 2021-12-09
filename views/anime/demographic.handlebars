@@ -1,0 +1,46 @@
+<div class="container-fluid">
+<main>
+  <h1 class="category">{{title}}</h1>
+  <div class="jumbotron">
+    <div class="container text-center">
+  <p>{{detail}}</p>
+  </div>
+  </div>
+  
+    <div class="row">
+      {{#if category}}
+      {{#each category}}
+        <div class="col-sm-3">
+            <a class="anime-item" href="/anime/{{this.id}}"><img
+                class="character-image"
+                src="{{this.attributes.posterImage.small}}"
+                alt="{{this.attributes.canonicalTitle}}"
+              />
+              </a>
+              <p>{{this.attributes.canonicalTitle}}</p>
+        </div>
+        {{/each}}
+      {{else}}
+        <p class="not-found">We're sorry, but no results were found for
+          {{character}}.</p>
+      {{/if}}
+    </div>
+     <h3 class="demographic">Demographic</h3>
+    <div class="row">
+      <div class="col-sm-2">
+        <a class="btn btn-outline-primary " href="/josei" role="button">JOSEI</a>
+      </div>
+        <div class="col-sm-2">
+        <a class="btn btn-outline-primary " href="/kids" role="button">KIDS</a>
+      </div>
+        <div class="col-sm-2">
+        <a class="btn btn-outline-primary " href="/seinen" role="button">SEINEN</a>
+      </div>
+        <div class="col-sm-2">
+         <a class="btn btn-outline-primary " href="/shoujo" role="button">SHOUJO</a>
+      </div>
+        <div class="col-sm-2">
+        <a class="btn btn-outline-primary " href="/shounen" role="button">SHOUNEN</a>
+      </div>
+    </div>
+    </div>
