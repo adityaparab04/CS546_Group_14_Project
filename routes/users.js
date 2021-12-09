@@ -156,6 +156,7 @@ router.post('/signup', async function (req, res) {
         errorMessage = e;
     }
     //console.log(errorMessage);
+
     res.render('users/signup', { title: "Error", error: errorMessage, isAdmin: req.session.user && req.session.user.username.includes("admin") ? true : false, isUserLoggedIn: req.session.user != null ? true : false })
 });
 
@@ -303,6 +304,7 @@ router.post('/update_profile', async function (req, res) {
     }
     //console.log(errorMessage);
     res.render('/users/updateProfile', { title: "Error", error: errorMessage, user: req.session.user, isAdmin: req.session.user && req.session.user.username.includes("admin") ? true : false, isUserLoggedIn: req.session.user != null ? true : false })
+
 });
 
 router.get('/logout', function (req, res) {

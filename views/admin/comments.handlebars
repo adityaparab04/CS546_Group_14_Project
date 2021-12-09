@@ -1,0 +1,58 @@
+<div class="container-fluid text-light">
+    <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+            <div class="position-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/admin">
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/reviews">
+                            All Reviews
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/comments">
+                            All Comments
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <h2>Mange Comments</h2>
+            <div class="table-responsive">
+                <table class="text-light table ">
+                    <thead>
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">date</th>
+                            <th scope="col">content</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each comments}}
+                        <tr>
+                            <td>{{this.user.username}}</td>
+                            <td>{{this.date}}</td>
+                            <td>{{this.content}}</td>
+
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-sm btn-danger"
+                                        onclick="window.location.href='/admin/comments/delete/{{this.reviewId}}/{{this._id}}'">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>
