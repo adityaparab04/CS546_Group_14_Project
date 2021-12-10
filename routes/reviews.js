@@ -66,9 +66,9 @@ router.post('/deleteComment', async (req, res) => {
   try {
 
     if (!req.session)
-      throw "you don't have the cookie to delete the comment"
+      throw "you don't have the cookie to delete the comment";
     if (!req.session.userId)
-      throw "login first,then delete commnet"
+      throw "login first,then delete comment";
     if (!req.body)
       throw "need info to delete the comment";
     if (!req.body.reviewId)
@@ -84,6 +84,16 @@ router.post('/deleteComment', async (req, res) => {
 
 router.post('/create', async function (req, res) {
   try {
+    if (!req.session)
+      throw "you don't have the cookie to write the review";
+    if (!req.session.user)
+      throw "login first,then write a review";
+    if (!req.body)
+      throw "need info to write the review";
+    if(!req.body.anime_id || typeof req.body.anime_id !== 'string')
+      throw "Invalid animeId"
+    if(!req.body.review.replace(/\s/g, "").length) 
+      throw `Review cannot be empty spaces`;
     const anime_id = xss(req.body.anime_id);
     const content = xss(req.body.review);
     await reviewData.createReview(anime_id, req.session.user._id, content);
