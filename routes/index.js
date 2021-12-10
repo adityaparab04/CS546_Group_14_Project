@@ -15,6 +15,8 @@ const constructerMethod = (app) => {
   app.use("/comments", commentRoutes);
   app.use("/admin", adminRoutes);
 
+
+
   app.use("*", (req, res) => {
     //res.redirect("/");  
     const animeData = {

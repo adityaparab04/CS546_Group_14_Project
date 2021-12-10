@@ -17,5 +17,6 @@ module.exports = {
     reviews: getCollectionFunc('reviews'),
     users: getCollectionFunc('users'),
     comments: getCollectionFunc('comments'),
-    anime: getCollectionFunc('anime')
+    anime: getCollectionFunc('anime'),
+    discussion:getCollectionFunc('discussion')
 };
