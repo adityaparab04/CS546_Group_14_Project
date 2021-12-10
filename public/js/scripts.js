@@ -110,7 +110,7 @@ async function validateSignInInputs(e) {
     else if (username.length < 5 || username.length > 25) {
         errorMessage = "Enter a User Name with more than 4 and less than 15 characters";
     }
-    else if (!username.match(/^[a-z0-9_@\.]+$/)) {
+    else if (!username.match(/^[a-zA-Z0-9_@\.]+$/)) {
         errorMessage = "Enter a User Name only with valid characters";
     }
     else if (username.includes("admin") && !validAdminUsernames.includes(username)) {
