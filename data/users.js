@@ -53,7 +53,7 @@ async function createUser(usernameLower, age, password, emailLower,picture) {
         if (user.email == email) throw 'Email already exists in database, please enter correct email address';
     })
 
-    const hashPassword = bcrypt.hashSync(password, 10);
+    const hashPassword = bcrypt.hashSync(password, 16);
     const newUser = {
         username: username,
         password: hashPassword,
@@ -219,7 +219,7 @@ async function updateUserNamePassword(_id, userName, password) {
 async function updateUser(id, newUserData) {
     try {
         if (newUserData.password) {
-            newUserData.password = bcrypt.hashSync(newUserData.password, 10);
+            newUserData.password = bcrypt.hashSync(newUserData.password, 16);
         }
         const userUpdate = await users();
         let uu = await userUpdate.updateOne({ "_id": ObjectId(id) }, { $set: newUserData });
