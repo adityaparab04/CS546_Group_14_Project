@@ -6,16 +6,16 @@ const animeCollection = require('./animeDb');
 
 
 //create a new review
-async function createReview(animeId, userId, content, rating) {
+async function createReview(animeId, userId, content) {
     if (!animeId || typeof animeId !== "string") throw `you must provide an anime Id`;
     if (!userId || typeof userId !== "string") throw `you must provide an user Id`;
     if (!content || typeof content !== "string") throw `you should input a string as the content`;
+    if(!content.replace(/\s/g, "").length) throw `Review cannot be empty spaces`;
     let reviewCollection = await reviews();
     let newReview = {
         animeId: animeId,
         userId: userId,
         content: content,
-        rating: rating,
         commentIdArr: [],
         likeCount: [],
         dislikeCount: [],

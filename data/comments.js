@@ -12,8 +12,9 @@ let exportedMethods = {
         if (!userId || typeof userId !== "string")
             throw `you should input a string as the userId`;
         if (!content || typeof content !== "string")
-            throw `you should input a string as the content`;
-
+            throw `you should input a string as the comment`;
+        if(!content.replace(/\s/g, "").length)
+            throw `you should not enter empty spaces in comment`;
         let commentCollection = await comments();
         let newComment = {
             reviewId: reviewId,
