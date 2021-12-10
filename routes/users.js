@@ -143,12 +143,15 @@ router.post('/signup', async function (req, res) {
     try {
         if (errorMessage == null) {
             if (!req.files) {
-                errorMessage = "No profile picture uploaded";
-        
+                const adduser = await userFetch.createUser(req.body.username, age, req.body.password, req.body.email,  `/public/images/profile_pic.jpeg`);
+                return res.redirect('/users/login?msg=Congratulations, you are user now');
             } else {
                 let picture = req.files.picture;
-                picture.mv(`./public/pics/${username}_` + picture.name);
-                const adduser = await userFetch.createUser(req.body.username, age, req.body.password, req.body.email,`/public/pics/${username}_` + picture.name);
+                //picture.mv(`./public/pics/${username}_` + picture.name);
+                picture.mv(`./public/pics/` + picture.name);
+                //const adduser = await userFetch.createUser(req.body.username, age, req.body.password, req.body.email,`/public/pics/${username}_` + picture.name);
+                const adduser = await userFetch.createUser(req.body.username, age, req.body.password, req.body.email, `/public/pics/` + picture.name);
+                
                 return res.redirect('/users/login?msg=Congratulations, you are user now');
             }
         }
