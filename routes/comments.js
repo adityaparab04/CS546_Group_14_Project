@@ -41,6 +41,10 @@ router.post("/create", async (req, res) => { // add
     res.redirect('/anime/' + req.body.animeId + '?msg=' + 'Comment content can not be empty.');
     return;
   }
+  if (!content.replace(/\s/g, "").length){
+    res.redirect('/anime/' + req.body.animeId + '?msg=' + 'Comment content can not be empty spaces.');
+    return;
+  }
   try {
     await commentData.addComment(reviewId, req.session.user._id, content);
     res.redirect('/anime/' + req.body.animeId);
