@@ -240,3 +240,21 @@ function goToDiscussion(e) {
     window.location.href = `/anime/discussion/${document.getElementById("anime_id_dis").value}/${document.getElementById("epno_dis").value}`;
     return false;
 }
+
+const form = document.getElementById("search-input");
+const input = document.getElementById("character-name");
+
+if(form){
+    form.addEventListener("submit",(event)=>{
+        event.preventDefault();
+        if(input.value.trim()===""){
+            alert("Please provide an anime to search");
+            input.value ='';
+            form.reset();
+            input.focus();
+            return;
+        }else{
+            form.submit();
+        }
+    });
+}
