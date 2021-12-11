@@ -1,6 +1,7 @@
 const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
 const bcrypt = require('bcryptjs');
+const reviewCollection = require('./reviews')
 let { ObjectId } = require('mongodb');
 
 // Function to validate email with atleast 5 characters in the name
@@ -44,7 +45,7 @@ async function createUser(usernameLower, age, password, emailLower,picture) {
     if (password.length < 6 || password.length > 20) throw "enter a password with more than 6 characters or less than 20"
     if (!password.match(/^(?!\s*$).+/)) throw "Enter a valid password"
     if (age == null || age == undefined || !age) throw "Invalid age parameters"
-    if (typeof age === 'string') throw "Age should be a number"
+    if (typeof age !== 'number') throw "Age should be a number"
     if (age < 1 || age > 100) throw "Invalid age"
     // Checking if already exists in database
     const allUsers = await getAllUsers();
@@ -115,11 +116,21 @@ async function deleteUser(_id) {
     if (typeof _id != 'string') throw 'Id should be string'
     if (!ObjectId.isValid(_id)) { throw "Enter a valid object id" }
     const userCollection = await users();
-    const deletionInfo = await userCollection.deleteOne({ "_id": ObjectId(_id) });
-    if (deletionInfo.deletedCount === 0) {
-        throw `Could not delete user with id of ${_id}`;
+    let userData = await getUserById(_id);
+    let userReviews = userData.reviews;
+    for(let i=0; i< userReviews.length; i++){
+        reviewCollection.removeReview(userReviews[i]);
+        console.log('hi')
     }
-    return true;
+    if(userReviews.length === 0){
+        return true;
+    }
+    
+    //const deletionInfo = await userCollection.deleteOne({ "_id": ObjectId(_id) });
+    // if (deletionInfo.deletedCount === 0) {
+    //     throw `Could not delete user with id of ${_id}`;
+    // }
+    // return true;
 }
 //Checking user for while login
 async function checkUser(usernameLower, password, emailLower) {
