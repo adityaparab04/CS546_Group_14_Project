@@ -53,4 +53,11 @@
     {{else}}
     <h2>No Discussion yet.</h2>
     {{/if}}
+        <div>
+        {{#if isUserLoggedIn}}
+        <p>Go Ahead and give your thoughts</p>
+        {{else}}
+        <p>SignUp/Login to write a review</p>
+        {{/if}}
+    </div>
 </div>

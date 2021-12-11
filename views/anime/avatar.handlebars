@@ -118,7 +118,15 @@
         </div>
 
     </div>
-
+    <div>
+        {{#if isReleased}}
+        {{#if isUserLoggedIn}}
+        <p>Go Ahead and write a review</p>
+        {{else}}
+        <p>SignUp/Login to write a review</p>
+        {{/if}}
+        {{/if}}
+    </div>
     {{#if reviews}}
     <div class="row mb-2 text-white">
         {{#each reviews}}
