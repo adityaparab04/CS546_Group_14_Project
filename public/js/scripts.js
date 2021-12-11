@@ -258,22 +258,24 @@ if(form){
         }
     });
 }
-//comment client side error handling
-let commentForm = document.getElementById("commentForm");
-let commentText = document.getElementById("commentText");
-if(commentForm){
-    commentForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        if(commentText.value.trim()===""){
-            alert("Comment cannot be empty spaces");
-            commentText.value ='';
-            commentForm.reset();
-            commentText.focus();
-        }
-        else{
-            commentForm.submit();
-        }
-    });
+// comment client side error handling
+let commentForm = document.getElementsByClassName("commentForm");
+let commentText = document.getElementsByClassName("commentText");
+for(let i=0; i<commentForm.length; i++){
+    if(commentForm[i]){
+        commentForm[i].addEventListener("submit", (event) => {
+            event.preventDefault();
+            if(commentText[i].value.trim()===""){
+                alert("Comment cannot be empty");
+                commentText[i].value ='';
+                commentForm[i].reset();
+                commentText[i].focus();
+            }
+            else{
+                commentForm[i].submit();
+            }
+        });
+    }
 }
 //reviews client side error handling
 let reviewForm = document.getElementById("reviewForm");
