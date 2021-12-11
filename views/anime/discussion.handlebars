@@ -1,4 +1,5 @@
 <div class="container-fluid">
+    <a href="/anime/{{animeId}}" class="btn btn-outline-primary" >Go back to anime</a>
 {{#if msg}}
     <div id="error-alert" class="alert alert-success" role="alert">
         <h4 class="alert-heading">Message!</h4>
@@ -19,7 +20,7 @@
                         <div style="display: flex;">
                             <input type="text" name="text" id="discussionText" placeholder="your message ..." class="form-control" required>
                             <span class="input-group-btn">
-                                <button type="submit" class="btn btn-primary" type="button">Send</button>
+                                <button type="submit" class="btn btn-primary">Send</button>
                             </span>
                         </div>
                     </form>

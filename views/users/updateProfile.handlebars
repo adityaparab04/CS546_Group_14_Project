@@ -1,4 +1,4 @@
-<body>
+
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
@@ -15,19 +15,19 @@
                     onsubmit="return validateUpdateProfileInputs(event);">
                     <div class="form-group">
                         <input type="hidden" class="form-control" id="id" name="id" value="{{user._id}}" />
-                        <p class="noPost" for="text1">Email:</p>
+                        <p class="noPost" >Email:</p>
                         <input type="email" class="form-control" id="email" name="email" placeholder="Your Email"
                             value="{{user.email}}" />
                         <br>
-                        <p class="noPost" for="text1">Age:</p>
+                        <p class="noPost" >Age:</p>
                         <input type="number" class="form-control" id="age" name="age" placeholder="Your Age"
                             value="{{user.age}}" />
                         <br>
-                        <p class="noPost" for="text1">New Password:</p>
+                        <p class="noPost" >New Password:</p>
                         <input type="password" class="form-control" id="password" name="password"
                             placeholder="Your password" />
                         <br>
-                        <p class="noPost" for="text1">Confirm New Password:</p>
+                        <p class="noPost" >Confirm New Password:</p>
                         <input type="password" class="form-control" id="confirm-password" name="confirm-password" 
                             placeholder="Confirm your password"/>
                         <br />
@@ -44,4 +44,3 @@
     <br />
     <br />
     <br />
-</body>

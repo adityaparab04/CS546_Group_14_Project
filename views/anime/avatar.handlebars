@@ -41,15 +41,15 @@
     {{/if}}
             {{!-- <h1 class="display-4 fst-italic">{{character.attributes.canonicalTitle}}</h1> --}}
             {{#if character.attributes.canonicalTitle}}
-    <h1 class="display-4 fst-italic">{{character.attributes.canonicalTitle}}</h3> 
+    <h1 class="display-4 fst-italic">{{character.attributes.canonicalTitle}}</h1> 
     {{else}}
-    <h1 class="display-4 fst-italic">Nobody</h3> 
+    <h1 class="display-4 fst-italic">Nobody</h1> 
     {{/if}}
             {{!-- <h3>Critics Average Rating:{{character.attributes.averageRating}}</h3> --}}
               {{#if character.attributes.averageRating}}
-    <h2>Critics Average Rating:{{character.attributes.averageRating}}</h3>
+    <h2>Critics Average Rating:{{character.attributes.averageRating}}</h2>
     {{else}}
-    <h2>Critics Average Rating: N/A</h3>
+    <h2>Critics Average Rating: N/A</h2>
     {{/if}}
             <br>
             {{!-- <h3>Start Date:{{character.attributes.startDate}}</h3> --}}
@@ -96,7 +96,7 @@
             {{#if showRatingForm}}
 
             <form method="post" action="/anime/rating">
-                <input type="hidden" id="animeId" name="animeId" value="{{character.id}}">
+                <input type="hidden" id="newAnimeId" name="animeId" value="{{character.id}}">
                 <label>Give Rating:</label>
                 <select class="form-input" name="rating" id="rating">
                     <option value="1">1</option>
@@ -208,11 +208,11 @@
     {{/if}}
 
 
-    <div class="modal fade bg-dark" id="discModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade bg-dark" id="discModal" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header text-dark">
-                    <h3 class="modal-title" id="exampleModalLabel" style="color: inherit;">Episodic Discussion Threads
+                    <h3 class="modal-title" id="exampleModalLabel2" style="color: inherit;">Episodic Discussion Threads
                     </h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -220,7 +220,7 @@
                     <form onsubmit="return goToDiscussion(event)">
                         <input type="hidden" id="anime_id_dis" name="anime_id" value="{{character.id}}" />
                         <div class="mb-3">
-                            <label for="epno" class="form-label">Episode No:</label>
+                            <label for="epno_dis" class="form-label">Episode No:</label>
                             <input type="number" class="form-control" id="epno_dis" name="epno" required />
                         </div>
                         <button type="submit" class="btn btn-primary">Go</button>

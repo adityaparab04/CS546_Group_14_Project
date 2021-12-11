@@ -1,4 +1,3 @@
-<body>
   <div class="container">
     <div class="row">
       <div class="col-sm-8">
@@ -14,24 +13,24 @@
 
         <form id="signup-form" method="post" action="/users/signup" onsubmit="return validateSignupInputs(event);" enctype="multipart/form-data">
           <div class="form-group">
-            <p class="noPost" for="text1">Username:</p>
+            <p class="noPost">Username:</p>
             <input type="text" class="form-control" id="username" name="username"
               placeholder="Create a username of atleast length 5 and max 25 characters" />
             <br />
-            <p class="noPost" for="text1">Email:</p>
+            <p class="noPost">Email:</p>
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter a valid  address" />
             <br />
-            <p class="noPost" for="text1">Age:</p>
+            <p class="noPost" >Age:</p>
             <input type="number" class="form-control" id="age" name="age" placeholder="Enter your Age" />
             <br />
-            <p class="noPost" for="text1">Password:</p>
+            <p class="noPost" >Password:</p>
             <input type="password" class="form-control" id="password" name="password" placeholder="Create your password of atleast 6 characters" />
             <br />
-            <p class="noPost" for="text1">Confirm Password:</p>
+            <p class="noPost" >Confirm Password:</p>
             <input type="password" class="form-control" id="confirm-password" name="confirm-password"
               placeholder="Confirm your password" />
             <br />
-            <p class="noPost" for="picture">Upload a display picture for your profile if you want:</p>
+            <p class="noPost" >Upload a display picture for your profile if you want:</p>
             <input type="file" class="form-control" id="picture" name="picture" accept=".jpg,.gif,.png,.jpeg" />
             <br />
             <div class="form-group">
@@ -49,4 +48,3 @@
   <br />
   <br />
   <br />
-</body>
