@@ -2,12 +2,12 @@
     <a href="/anime/{{animeId}}" class="btn btn-outline-primary" >Go back to anime</a>
 {{#if msg}}
     <div id="error-alert" class="alert alert-success" role="alert">
-        <h4 class="alert-heading">Message!</h4>
+        <p class="alert-heading">Message!</p>
         <p style="color: inherit;">{{msg}}</p>
     </div>
 {{/if}}
 </div>
-<h2 class="text-center">Discussion Thread: Episode {{epno}}</h2>
+<h1 class="text-center">Discussion Thread: Episode {{epno}}</h1>
 <div class="container mt-4" style="display: flex; flex-direction: column; align-items: flex-start; align-content: center;">
     {{#if isUserLoggedIn}}
     <div class="messaging center-block" style="align-self:center;">
@@ -34,7 +34,7 @@
     {{#each discussions}}
     {{#if this.isMine}}
     <div class="message-candidate-self center-block" style="align-self: flex-start;">
-        <h4 class="message-name">{{this.user.username}}</h4>
+        <h2 class="message-name">{{this.user.username}}</h2>
         <div> {{this.date}}</div>
         <div class="row message-text">
             {{this.text}}
@@ -42,7 +42,7 @@
     </div>
     {{else}}
     <div class="message-candidate center-block" style="align-self: flex-end;">
-        <h4 class="message-name">{{this.user.username}}</h4>
+        <h2 class="message-name">{{this.user.username}}</h2>
         <div> {{this.date}}</div>
         <div class="row message-text">
             {{this.text}}
