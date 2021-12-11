@@ -117,30 +117,36 @@ async function deleteUser(_id) {
     if (typeof _id != 'string') throw 'Id should be string'
     if (!ObjectId.isValid(_id)) { throw "Enter a valid object id" }
     const userCollection = await users(); 
+    await removeReviewByaUserId(_id);
     const deletionInfo = await userCollection.deleteOne({ "_id": ObjectId(_id) });
     if (deletionInfo.deletedCount === 0) {
         throw `Could not delete user with id of ${_id}`;
     }
     await removeCommentsByUserId(_id);
-    await removeReviewByaUserId(_id);
     return true;
 }
 
 //remove review by user Id
 async function removeReviewByaUserId(userId) {
     if (!userId || typeof userId !== 'string') throw `provide a review Id`
+    let parseId = ObjectId(userId);
     let reviewCollection = await reviews();
-
-    let deletionInfo = await reviewCollection.deleteMany({ userId: userId });
-
-    if (deletionInfo.deletedCount === 0) {
-        throw `Could not delete the band with id of ${animeId}`;
+    let userCollection = await users();
+    let userInfo = await userCollection.findOne({_id: parseId})
+    let userReviewArr = userInfo.reviews;
+    if(userReviewArr.length !== 0){
+        let deletionInfo = await reviewCollection.deleteMany({ userId: userId });
+        if (deletionInfo.deletedCount === 0) {
+            throw `Could not delete the review with id of ${userId}`;
+        }
+        return `removed all reviews for ${userId}`;
     }
-
-    return `removed all reviews for ${userId}`;
+    else{
+        return `no reviews for ${userId}`
+    }
 }
 
-//remove review by user Id
+//remove comments by user Id
 async function removeCommentsByUserId(userId) {
     if (!userId || typeof userId !== 'string') throw `provide a review Id`
     let commentCollection = await comments();
@@ -148,7 +154,8 @@ async function removeCommentsByUserId(userId) {
     let deletionInfo = await commentCollection.deleteMany({ userId: userId });
 
     if (deletionInfo.deletedCount === 0) {
-        throw `Could not delete the band with id of ${animeId}`;
+        //throw `Could not delete the band with id of ${userId}`;
+        return `no comments for ${userId}`
     }
 
     return `removed all comments for ${userId}`;
