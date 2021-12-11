@@ -1,7 +1,8 @@
 const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
+const reviews = mongoCollections.reviews;
+const comments = mongoCollections.comments;
 const bcrypt = require('bcryptjs');
-const reviewCollection = require('./reviews')
 let { ObjectId } = require('mongodb');
 
 // Function to validate email with atleast 5 characters in the name
@@ -115,23 +116,51 @@ async function deleteUser(_id) {
     if (_id.length === 0) { throw "Id is blank" }
     if (typeof _id != 'string') throw 'Id should be string'
     if (!ObjectId.isValid(_id)) { throw "Enter a valid object id" }
-    const userCollection = await users();
-    let userData = await getUserById(_id);
-    let userReviews = userData.reviews;
-    for(let i=0; i< userReviews.length; i++){
-        reviewCollection.removeReview(userReviews[i]);
-        console.log('hi')
+    const userCollection = await users(); 
+    await removeReviewByaUserId(_id);
+    const deletionInfo = await userCollection.deleteOne({ "_id": ObjectId(_id) });
+    if (deletionInfo.deletedCount === 0) {
+        throw `Could not delete user with id of ${_id}`;
     }
-    if(userReviews.length === 0){
-        return true;
-    }
-    
-    //const deletionInfo = await userCollection.deleteOne({ "_id": ObjectId(_id) });
-    // if (deletionInfo.deletedCount === 0) {
-    //     throw `Could not delete user with id of ${_id}`;
-    // }
-    // return true;
+    await removeCommentsByUserId(_id);
+    return true;
 }
+
+//remove review by user Id
+async function removeReviewByaUserId(userId) {
+    if (!userId || typeof userId !== 'string') throw `provide a review Id`
+    let parseId = ObjectId(userId);
+    let reviewCollection = await reviews();
+    let userCollection = await users();
+    let userInfo = await userCollection.findOne({_id: parseId})
+    let userReviewArr = userInfo.reviews;
+    if(userReviewArr.length !== 0){
+        let deletionInfo = await reviewCollection.deleteMany({ userId: userId });
+        if (deletionInfo.deletedCount === 0) {
+            throw `Could not delete the review with id of ${userId}`;
+        }
+        return `removed all reviews for ${userId}`;
+    }
+    else{
+        return `no reviews for ${userId}`
+    }
+}
+
+//remove comments by user Id
+async function removeCommentsByUserId(userId) {
+    if (!userId || typeof userId !== 'string') throw `provide a review Id`
+    let commentCollection = await comments();
+
+    let deletionInfo = await commentCollection.deleteMany({ userId: userId });
+
+    if (deletionInfo.deletedCount === 0) {
+        //throw `Could not delete the band with id of ${userId}`;
+        return `no comments for ${userId}`
+    }
+
+    return `removed all comments for ${userId}`;
+}
+
 //Checking user for while login
 async function checkUser(usernameLower, password, emailLower) {
     username = usernameLower.toLowerCase();
@@ -285,6 +314,8 @@ module.exports = {
     updateUserNamePassword,
     addReviewToUser,
     removeReviewFromUser,
+    removeReviewByaUserId,
+    removeCommentsByUserId,
     updateUser,
     handleSocialData
 }

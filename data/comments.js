@@ -2,7 +2,6 @@ const mongoCollections = require('../config/mongoCollections');
 const { ObjectId } = require('mongodb');
 const comments = mongoCollections.comments;
 const reviewCollection = require('./reviews');
-const userCollection = require('./users');
 
 let exportedMethods = {
     async addComment(reviewId, userId, content){
