@@ -258,3 +258,54 @@ if(form){
         }
     });
 }
+//comment client side error handling
+let commentForm = document.getElementById("commentForm");
+let commentText = document.getElementById("commentText");
+if(commentForm){
+    commentForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        if(commentText.value.trim()===""){
+            alert("Comment cannot be empty spaces");
+            commentText.value ='';
+            commentForm.reset();
+            commentText.focus();
+        }
+        else{
+            commentForm.submit();
+        }
+    });
+}
+//reviews client side error handling
+let reviewForm = document.getElementById("reviewForm");
+let reviewText = document.getElementById("review");
+if(reviewForm){
+    reviewForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        if(reviewText.value.trim()===""){
+            alert("Reviews cannot be empty spaces");
+            reviewText.value ='';
+            reviewForm.reset();
+            reviewText.focus();
+        }
+        else{
+            reviewForm.submit();
+        }
+    });
+}
+//discussion forum client side error handling
+let discussionForm = document.getElementById("discussionForm");
+let discussionText = document.getElementById("discussionText");
+if(discussionForm){
+    discussionForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        if(discussionText.value.trim()===""){
+            alert("Reviews cannot be empty spaces");
+            discussionText.value ='';
+            discussionForm.reset();
+            discussionText.focus();
+        }
+        else{
+            discussionForm.submit();
+        }
+    });
+}

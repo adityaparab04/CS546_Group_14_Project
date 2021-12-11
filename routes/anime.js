@@ -162,6 +162,8 @@ router.post('/rating', async (req, res) => {
   }
 });
 router.get('/discussion/:animeId/:epno', async (req, res) => {
+  if(!req.params.animeId || typeof req.params.animeId !== 'string') throw `invalid anime id`;
+  if(!req.params.epno || typeof req.params.epno !== 'string') throw `invalid ep no`;
   let discussions = await discussionData.getAllDiscussionsOfAnAnimeEpisode(req.params.animeId, req.params.epno);
   discussions = discussions.reverse();
   if (discussions && discussions.length > 0) {
@@ -184,12 +186,24 @@ router.get('/discussion/:animeId/:epno', async (req, res) => {
     animeId: req.params.animeId,
     discussions,
     isAdmin: req.session.user && req.session.user.username.includes("admin") ? true : false,
-    isUserLoggedIn: req.session.user != null ? true : false
+    isUserLoggedIn: req.session.user != null ? true : false,
+    msg: req.query.msg,
   });
 });
 
 router.post('/add_discussion', async (req, res) => {
-  await discussionData.addDiscussion(req.body.animeId, req.body.epno, req.session.user._id.toString(), req.body.text);
-  res.redirect(`/anime/discussion/${req.body.animeId}/${req.body.epno}`);
+  try{
+    if(!req.body.animeId || typeof req.body.animeId !== 'string') throw `invalid anime id`;
+    if(!req.body.epno || typeof req.body.epno !== 'string') throw `invalid ep no`;
+    if(!req.session.user._id) throw `user Id not found`;
+    if(!req.body.text || typeof req.body.text !== 'string') throw `invalid type of req.body.text`;
+    if(!req.body.text.replace(/\s/g, "").length) throw `Input cannot be empty spaces`;
+    await discussionData.addDiscussion(req.body.animeId, req.body.epno, req.session.user._id.toString(), req.body.text);
+    return res.redirect(`/anime/discussion/${req.body.animeId}/${req.body.epno}`);
+  }
+  catch(e){
+    res.redirect(`/anime/discussion/${req.body.animeId}/${req.body.epno}` + `?msg=` + e);
+  }
+  
 });
 module.exports = router;
