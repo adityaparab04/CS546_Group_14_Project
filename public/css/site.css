@@ -187,3 +187,7 @@ body > footer {
   text-align: center;
   color: purple;
 }
+
+#ageCategoryRating{
+  margin-bottom: 20px;
+}
