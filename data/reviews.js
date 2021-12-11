@@ -27,6 +27,7 @@ async function createReview(animeId, userId, content) {
     }
     let newId = insertInfo.insertedId;
     await animeCollection.createAnimeDb(animeId, newId.toString());
+    await userCollections.addReviewToUser(userId, newId.toString());
     let reviewCreated = await getReviewById(newId.toString());
     return reviewCreated;
 }
@@ -81,7 +82,7 @@ async function removeReview(reviewId) {
     };
 
     //call the method in the user collection to remove the review id
-    //await usersCollection.removePostFromUser(reviewinfo.userId, reviewId);
+    await userCollections.removeReviewFromUser(reviewinfo.userId, reviewId);
 
     return `removed review for ${reviewId}`;
 }
