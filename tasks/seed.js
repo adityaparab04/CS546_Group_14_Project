@@ -7,25 +7,27 @@ const animeData = require("../data/anime");
 
 async function main() {
   const db = await connection.connectToDb();
-  // await db.dropDatabase();
+  await db.dropDatabase();
 
-  //users.deleteUser('61b43fc1a49a119341eafe80')
-
+  try{
+    const user1 = await users.createUser('Vaibhav1', 25, '123456', 'vaibhav1@123.com', '/public/images/profile_pic.jpeg');
+  }catch(e){
+    console.log(e);
+  }
+  try{
+    const user1 = await users.createUser('aditya', 22, '123456', 'aditya@123.com', '/public/images/profile_pic.jpeg');
+  }catch(e){
+    console.log(e);
+  }
 
   // try{
-  //   const user1 = await users.createUser('Vaibhav1', 25, '123456', 'vaibhav1@123.com', '/public/images/profile_pic.jpeg');
-  // }catch(e){
-  //   console.log(e);
-  // }
-
-  // try{
-  //   const user1 = await users.deleteUser('61b4d5be6d6915a5d488a3a4')
+  //   const user1 = await users.deleteUser('61b4ecb22038c40e84035172')
   //   console.log(user1);
   // }catch(e){
   //   console.log(e);
   // }
 
-  await reviews.removeReview('61b4da49f454090324d6fada')
+  //console.log(await users.removeReviewByaUserId('61b4f3cb36794daa0c2cbc4f'))
 
   await connection.closeConnection();
 }
