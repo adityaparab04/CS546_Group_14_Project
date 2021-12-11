@@ -207,7 +207,7 @@ router.post('/login', async function (req, res) {
             req.session.user = user;
             return res.send({ status: true, error: null });
         }
-        errorMessage = "User could not be found";
+        errorMessage = "Invalid username/password";
     }
     res.send({ status: false, error: errorMessage });
 });
