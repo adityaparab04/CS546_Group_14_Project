@@ -66,9 +66,6 @@ router.get("/users/delete/:userId", async (req, res) => {
         return res.redirect("/users/login?msg=Please login first.");
     }
     await usersCollection.deleteUser(req.params.userId);
-    if (req.session.user.userId.toString() == req.params.userId) {
-        return res.redirect("/users/logout");
-    }
     res.redirect("/admin");
 });
 
