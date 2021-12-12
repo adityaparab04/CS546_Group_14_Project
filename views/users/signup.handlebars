@@ -6,43 +6,37 @@
         {{#if error}}
 
         <div class="alert alert-danger col-4 offset-4" role="alert">
-          <h4 class="alert-heading">Error!</h4>
+          <p class="alert-heading">Error!</p>
           <p>{{error}}</p>
         </div>
         {{/if}}
 
         <form id="signup-form" method="post" action="/users/signup" onsubmit="return validateSignupInputs(event);" enctype="multipart/form-data">
           <div class="form-group">
-            <label for="username">
+            <label for="username"></label>
             <p class="noPost">Username:</p>
-            </label>
             <input type="text" class="form-control" id="username" name="username"
               placeholder="Create a username of atleast length 5 and max 25 characters" />
             <br />
-            <label for="email">
+            <label for="email"> </label>
             <p class="noPost">Email:</p>
-            </label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter a valid  address" />
             <br />
-            <label for="age">
+            <label for="age"></label>
             <p class="noPost" >Age:</p>
-            </label>
             <input type="number" class="form-control" id="age" name="age" placeholder="Enter your Age" />
             <br />
-            <label for="password">
+            <label for="password"> </label>
             <p class="noPost" >Password:</p>
-            </label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Create your password of atleast 6 characters" />
             <br />
-            <label for="confirm-password">
+            <label for="confirm-password"></label>
             <p class="noPost" >Confirm Password:</p>
-            </label>
             <input type="password" class="form-control" id="confirm-password" name="confirm-password"
               placeholder="Confirm your password" />
             <br />
-            <label for="picture">
+            <label for="picture"></label>
             <p class="noPost" >Upload a display picture for your profile if you want:</p>
-            </label>
             <input type="file" class="form-control" id="picture" name="picture" accept=".jpg,.gif,.png,.jpeg" />
             <br />
             <div class="form-group">
