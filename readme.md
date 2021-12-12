@@ -82,7 +82,7 @@ password: 123456
 5. On clicking on Sign up, you will get redirected to the Sign Up page of the user with the URL: (http://localhost:3000/users/signup) 
 5.1 On new Sign Up for the user, you will get redirected to the Login Page where you will need to login again. 
 
-6 On clicking on Login, you will get redirected to the login page with URL: (http://localhost:3000/users/login). Ajax form is used on login.
+6. On clicking on Login, you will get redirected to the login page with URL: (http://localhost:3000/users/login). Ajax form is used on login.
 6.1 On clicking on Login, you will get redirected to the login page where you can use existing login details or can create new user login. On successful login, you will get redirected to the Home Page where you will get logout, user profile and cart links in the navigation bar.
 
 7. When you search something it takes you too search route http://localhost:3000/search
