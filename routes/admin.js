@@ -30,6 +30,8 @@ router.get("/reviews/:userId", async (req, res) => {
     if (!req.session.user) {
         return res.redirect("/users/login?msg=Please login first.");
     }
+    if (!req.params.userId || typeof req.params.userId !== 'string' || !req.params.userId.replace(/\s/g, "").length)
+        throw `Enter a valid user Id`
     let reviews = await reviewCollection.getAllReviewsOfAUser(req.params.userId);
     for (let r of reviews) {
         r.user = await usersCollection.getUserById(r.userId);
@@ -54,6 +56,8 @@ router.get("/comments/:userId", async (req, res) => {
     if (!req.session.user) {
         return res.redirect("/users/login?msg=Please login first.");
     }
+    if (!req.params.userId || typeof req.params.userId !== 'string' || !req.params.userId.replace(/\s/g, "").length)
+        throw `Enter a valid user Id`
     let comments = await commentsCollection.getAllCommentsOfAUser(req.params.userId);
     for (let c of comments) {
         c.user = await usersCollection.getUserById(c.userId);
@@ -65,6 +69,8 @@ router.get("/users/delete/:userId", async (req, res) => {
     if (!req.session.user) {
         return res.redirect("/users/login?msg=Please login first.");
     }
+    if (!req.params.userId || typeof req.params.userId !== 'string' || !req.params.userId.replace(/\s/g, "").length)
+        throw `Enter a valid user Id`
     await usersCollection.deleteUser(req.params.userId);
     res.redirect("/admin");
 });
@@ -73,6 +79,8 @@ router.get("/reviews/delete/:reviewId", async (req, res) => {
     if (!req.session.user) {
         return res.redirect("/users/login?msg=Please login first.");
     }
+    if (!req.params.reviewId || typeof req.params.reviewId !== 'string' || !req.params.reviewId.replace(/\s/g, "").length)
+        throw `Enter a valid reviewId`;
     await reviewCollection.removeReview(req.params.reviewId);
     res.redirect("/admin/reviews");
 });
@@ -81,6 +89,10 @@ router.get("/comments/delete/:reviewId/:commentId", async (req, res) => {
     if (!req.session.user) {
         return res.redirect("/users/login?msg=Please login first.");
     }
+    if (!req.params.reviewId || typeof req.params.reviewId !== 'string' || !req.params.reviewId.replace(/\s/g, "").length)
+        throw `Enter a valid reviewId`;
+    if (!req.params.commentId || typeof req.params.commentId !== 'string' || !req.params.commentId.replace(/\s/g, "").length)
+        throw `Enter a valid reviewId`
     await commentsCollection.removeComments(req.params.reviewId, req.params.commentId);
     res.redirect("/admin/comments");
 });

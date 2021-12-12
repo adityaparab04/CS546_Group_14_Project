@@ -6,9 +6,9 @@ const reviewCollection = require('./reviews');
 let exportedMethods = {
     async addComment(reviewId, userId, content){
 
-        if (!reviewId || typeof reviewId !== "string")
+        if (!reviewId || typeof reviewId !== "string" || !reviewId.replace(/\s/g, "").length)
             throw `you should input a string as the reviewId`;
-        if (!userId || typeof userId !== "string")
+        if (!userId || typeof userId !== "string" || !userId.replace(/\s/g, "").length)
             throw `you should input a string as the userId`;
         if (!content || typeof content !== "string")
             throw `you should input a string as the comment`;
@@ -33,7 +33,7 @@ let exportedMethods = {
         return commentCreated;
     },
     async getCommentById(commentId){
-        if (!commentId || typeof commentId !== "string")
+        if (!commentId || typeof commentId !== "string"|| !commentId.replace(/\s/g, "").length)
         throw `You must provide an id to search for`;
         let commentCollection = await comments();
         let parseId = ObjectId(commentId);
@@ -49,23 +49,23 @@ let exportedMethods = {
         return allComments;
     },
     async getAllCommentsOfAReview(reviewId){
-        if (!reviewId || typeof reviewId !== "string")
+        if (!reviewId || typeof reviewId !== "string" || !reviewId.replace(/\s/g, "").length)
             throw `you should input a string as the reviewId`;
         let commentCollection = await comments();
         let allComments = await commentCollection.find({reviewId:reviewId}).toArray();
         return allComments;
     },
     async getAllCommentsOfAUser(userId){
-        if (!userId || typeof userId !== "string")
+        if (!userId || typeof userId !== "string" || !userId.replace(/\s/g, "").length)
             throw `you should input a string as the userId`;
         let commentCollection = await comments();
         let allComments = await commentCollection.find({userId}).toArray();
         return allComments;
     },
     async removeComments(reviewId, commentId){
-        if (!reviewId || typeof reviewId !== "string")
+        if (!reviewId || typeof reviewId !== "string" || !reviewId.replace(/\s/g, "").length)
             throw `you should input a string as the reviewId`;
-        if (!commentId || typeof commentId !== "string")
+        if (!commentId || typeof commentId !== "string" || !commentId.replace(/\s/g, "").length)
             throw `you should input a string as the commentId`;
 
         await reviewCollection.removeCommentIdFromReview(reviewId, commentId);
