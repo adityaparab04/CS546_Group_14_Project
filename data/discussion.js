@@ -29,6 +29,16 @@ let exportedMethods = {
         let allDis = await discussionCollection.find({ animeId, epno }).toArray();
         return allDis;
     },
+    async removeDiscussionByUserId(userId){
+        if(!userId || typeof userId !== 'string') throw `invalid user id`;
+        let discussionCollection = await discussion();
+        let deletionInfo = await discussionCollection.deleteMany({ userId: userId });
+        if (deletionInfo.deletedCount === 0) {
+            //throw `Could not delete the band with id of ${userId}`;
+            return `no discussion for ${userId}`
+        }
+        return `removed all discussion for ${userId}`;
+    }
 };
 
 module.exports = exportedMethods;

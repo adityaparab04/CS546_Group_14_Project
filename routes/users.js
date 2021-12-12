@@ -6,6 +6,8 @@ const xss = require("xss");
 const bcrypt = require('bcryptjs');
 const userFetch = data.users;
 const animeCollection = data.anime;
+const reviewCollection = data.reviews;
+const commentsCollection = data.comments;
 
 function validateEmail(email) {
     const regexEmail = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/;
@@ -207,7 +209,7 @@ router.post('/login', async function (req, res) {
             req.session.user = user;
             return res.send({ status: true, error: null });
         }
-        errorMessage = "User could not be found";
+        errorMessage = "Invalid username/password";
     }
     res.send({ status: false, error: errorMessage });
 });
@@ -223,10 +225,20 @@ router.get('/profile', async function (req, res) {
                 }
             }
         }
+        let reviews = await reviewCollection.getAllReviewsOfAUser(req.session.user._id.toString());
+        for (let r of reviews) {
+            r.user = await userFetch.getUserById(r.userId);
+            r.noOfLikes = r.likeCount.length;
+            r.noOfDislikes = r.dislikeCount.length;
+        }
+        let comments = await commentsCollection.getAllCommentsOfAUser(req.session.user._id.toString());
+        for (let c of comments) {
+            c.user = await userFetch.getUserById(c.userId);
+        }
         if (favs.length == 0) {
             favs = null;
         }
-        res.render('users/profileprivate', { title: "Information", favs: favs, user: req.session.user, isAdmin: req.session.user && req.session.user.username.includes("admin") ? true : false, isUserLoggedIn: req.session.user != null ? true : false })
+        res.render('users/profileprivate', { title: "Information", favs: favs, user: req.session.user, isAdmin: req.session.user && req.session.user.username.includes("admin") ? true : false, isUserLoggedIn: req.session.user != null ? true : false, reviews: reviews, comments })
     }
     else {
         res.redirect('/users/login?msg=Please sign in to view your profile');
@@ -313,6 +325,21 @@ router.post('/update_profile', async function (req, res) {
 router.get('/logout', function (req, res) {
     req.session.destroy();
     res.redirect('/logout');
+});
+
+router.get("/profile/:reviewId", async (req, res) => {
+    if (!req.session.user) {
+        return res.redirect("/users/login?msg=Please login first.");
+    }
+    await reviewCollection.removeReview(req.params.reviewId);
+    res.redirect("/users/profile");
+});
+router.get("/profile/delete/:reviewId/:commentId", async (req, res) => {
+    if (!req.session.user) {
+        return res.redirect("/users/login?msg=Please login first.");
+    }
+    await commentsCollection.removeComments(req.params.reviewId, req.params.commentId);
+    res.redirect("/users/profile");
 });
 
 

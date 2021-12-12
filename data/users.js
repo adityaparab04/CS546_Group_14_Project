@@ -3,6 +3,8 @@ const users = mongoCollections.users;
 const reviews = mongoCollections.reviews;
 const comments = mongoCollections.comments;
 const bcrypt = require('bcryptjs');
+
+const discussionCollection = require('./discussion');
 let { ObjectId } = require('mongodb');
 
 // Function to validate email with atleast 5 characters in the name
@@ -118,10 +120,11 @@ async function deleteUser(_id) {
     if (!ObjectId.isValid(_id)) { throw "Enter a valid object id" }
     const userCollection = await users(); 
     await removeReviewByaUserId(_id);
-    const deletionInfo = await userCollection.deleteOne({ "_id": ObjectId(_id) });
+    const deletionInfo = await userCollection.deleteOne({ _id: ObjectId(_id) });
     if (deletionInfo.deletedCount === 0) {
         throw `Could not delete user with id of ${_id}`;
     }
+    await discussionCollection.removeDiscussionByUserId(_id);
     await removeCommentsByUserId(_id);
     return true;
 }

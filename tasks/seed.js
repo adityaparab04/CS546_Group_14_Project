@@ -7,26 +7,14 @@ const animeData = require("../data/anime");
 
 async function main() {
   const db = await connection.connectToDb();
-  // await db.dropDatabase();
+  await db.dropDatabase();
 
-  //users.deleteUser('61b43fc1a49a119341eafe80')
-
-
-  // try{
-  //   const user1 = await users.createUser('Vaibhav1', 25, '123456', 'vaibhav1@123.com', '/public/images/profile_pic.jpeg');
-  // }catch(e){
-  //   console.log(e);
-  // }
-
-  // try{
-  //   const user1 = await users.deleteUser('61b4d5be6d6915a5d488a3a4')
-  //   console.log(user1);
-  // }catch(e){
-  //   console.log(e);
-  // }
-
-  await reviews.removeReview('61b4da49f454090324d6fada')
-
+  // create users for testing
+    const user1 = await users.createUser('Vaibhav', 26, '123456', 'vaibhav@123.com', '/public/images/profile_pic.jpeg');
+    const user2 = await users.createUser('aditya_parab', 23, '123456', 'aditya@123.com', '/public/images/profile_pic.jpeg');
+    const user3 = await users.createUser('Seema', 25, '123456', 'seema@123.com', '/public/images/profile_pic.jpeg');
+    const user4 = await users.createUser('adityaKotian', 25, '123456', 'adityak@123.com', '/public/images/profile_pic.jpeg');
+    const admin = await users.createUser('admin', 25, '123456', 'admin@123.com', '/public/images/profile_pic.jpeg');
   await connection.closeConnection();
 }
 
