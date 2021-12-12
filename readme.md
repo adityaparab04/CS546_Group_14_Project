@@ -1,6 +1,12 @@
-This is a CS 546 final project of Group 14: 
+This is a CS 546 final project of Group 14:
 
-Otaku Hub - Anime Review Forum
+Group Members:
+Aditya Parab
+Aditya Kotian
+Vaibhav Vashisht
+Seema Muchandi
+
+#Otaku Hub - Anime Review Forum
 
 API Website for project : https://kitsu.docs.apiary.io/#introduction/json:api
 
