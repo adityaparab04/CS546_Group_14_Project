@@ -191,3 +191,11 @@ body > footer {
 #ageCategoryRating{
   margin-bottom: 20px;
 }
+
+#error-line{
+  color: black;
+}
+
+.alert-heading{
+  color: black;
+}
