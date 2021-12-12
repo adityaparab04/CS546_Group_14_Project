@@ -1,6 +1,7 @@
 const mongoCollections = require('../config/mongoCollections');
 const { ObjectId } = require('mongodb');
 const reviews = mongoCollections.reviews;
+const comments = mongoCollections.comments;
 const userCollections = require('./users');
 const animeCollection = require('./animeDb');
 
@@ -40,6 +41,7 @@ async function getAllReviews() {
 }
 
 async function getAllReviewsOfAUser(userId) {
+    if (!userId || typeof userId !== 'string') throw `provide a user Id`
     let reviewCollection = await reviews();
     let allReviews = await reviewCollection.find({userId}).toArray();
     return allReviews;
@@ -80,6 +82,8 @@ async function removeReview(reviewId) {
     if (deletionInfo.deletedCount === 0) {
         throw `Could not delete the band with id of ${reviewId}`;
     };
+    await removeCommentsByReviewId(reviewId);
+    await userCollections.removeReviewFromUser(reviewinfo.userId, reviewId);
 
     //call the method in the user collection to remove the review id
     await userCollections.removeReviewFromUser(reviewinfo.userId, reviewId);
@@ -185,6 +189,19 @@ async function addDislikeCount(reviewId, userId) {
     }
 }
 
+async function removeCommentsByReviewId(reviewId) {
+    if (!reviewId || typeof reviewId !== 'string') throw `provide a review Id`
+    let commentCollection = await comments();
+
+    let deletionInfo = await commentCollection.deleteMany({ reviewId: reviewId });
+
+    if (deletionInfo.deletedCount === 0) {
+        return `No comments with reviewId of ${reviewId}`;
+    }
+
+    return `removed all Comments for reviewId: ${reviewId}`;
+}
+
 module.exports = {
     createReview,
     getAllReviews,
@@ -194,6 +211,7 @@ module.exports = {
     removeReviewByaAnimeId,
     addCommentIdToReview,
     removeCommentIdFromReview,
+    removeCommentsByReviewId,
     addLikeCount,
     addDislikeCount,
     getAllReviewsOfAUser
