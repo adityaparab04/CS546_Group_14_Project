@@ -49,11 +49,15 @@ let exportedMethods = {
         return allComments;
     },
     async getAllCommentsOfAReview(reviewId){
+        if (!reviewId || typeof reviewId !== "string")
+            throw `you should input a string as the reviewId`;
         let commentCollection = await comments();
         let allComments = await commentCollection.find({reviewId:reviewId}).toArray();
         return allComments;
     },
     async getAllCommentsOfAUser(userId){
+        if (!userId || typeof userId !== "string")
+            throw `you should input a string as the userId`;
         let commentCollection = await comments();
         let allComments = await commentCollection.find({userId}).toArray();
         return allComments;
