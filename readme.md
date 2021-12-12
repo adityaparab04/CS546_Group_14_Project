@@ -97,3 +97,7 @@ password: 123456
 11. user can update their profile which takes to the route http://localhost:3000/users/update_profile
 
 12. User can also login in through social accounts like google and microsoft account by clicking on social account in nav bar.
+
+#### External packages used
+express-open-id for soical login
+boot-strap for css templating
