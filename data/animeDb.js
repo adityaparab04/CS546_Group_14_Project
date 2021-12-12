@@ -177,7 +177,7 @@ let exportedMethods = {
     },
 
     async RemoveAnimeFromFavorites(animeId, userId) {
-        console.log(ObjectId.isValid(userId));
+        //console.log(ObjectId.isValid(userId));
         if(!animeId|| !userId){
             throw "please provide a proper ID"
         }
@@ -189,6 +189,7 @@ let exportedMethods = {
         }
         let animeCollection = await anime();
         await animeCollection.updateOne({ _id: animeId }, { $pull: { favUserArr: userId } });
+        return `removed from favourite`
     }
 };
 

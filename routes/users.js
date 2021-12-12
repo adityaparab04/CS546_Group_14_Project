@@ -331,6 +331,7 @@ router.get("/profile/:reviewId", async (req, res) => {
     if (!req.session.user) {
         return res.redirect("/users/login?msg=Please login first.");
     }
+    if(!req.params.reviewId || typeof req.params.reviewId !== 'string' || !req.params.reviewId.replace(/\s/g, "").length) throw `invalid reviewId`;
     await reviewCollection.removeReview(req.params.reviewId);
     res.redirect("/users/profile");
 });
@@ -338,6 +339,9 @@ router.get("/profile/delete/:reviewId/:commentId", async (req, res) => {
     if (!req.session.user) {
         return res.redirect("/users/login?msg=Please login first.");
     }
+    if(!req.params.reviewId || typeof req.params.reviewId !== 'string' || !req.params.reviewId.replace(/\s/g, "").length) throw `invalid reviewId`;
+    if(!req.params.commentId || typeof req.params.commentId !== 'string' || !req.params.commentId.replace(/\s/g, "").length) throw `invalid commentId`;
+    
     await commentsCollection.removeComments(req.params.reviewId, req.params.commentId);
     res.redirect("/users/profile");
 });

@@ -4,9 +4,9 @@ const discussion = mongoCollections.discussion;
 
 let exportedMethods = {
     async addDiscussion(animeId, epno, userId, text) {
-        if(!animeId || typeof animeId !== 'string') throw `invalid anime id`;
-        if(!epno || typeof epno !== 'string') throw `invalid ep no`;
-        if(!userId || typeof userId !== 'string') throw `invalid user id`;
+        if(!animeId || typeof animeId !== 'string' || !animeId.replace(/\s/g, "").length) throw `invalid anime id`;
+        if(!epno || typeof epno !== 'string' || !epno.replace(/\s/g, "").length) throw `invalid ep no`;
+        if(!userId || typeof userId !== 'string' || !userId.replace(/\s/g, "").length) throw `invalid user id`;
         if(!text || typeof text !== 'string') throw `invalid type of text`;
         if(!text.replace(/\s/g, "").length) throw `Input cannot be empty spaces`;
         let discussionCollection = await discussion();
@@ -23,14 +23,14 @@ let exportedMethods = {
         return `discussion inserted`;
     },
     async getAllDiscussionsOfAnAnimeEpisode(animeId, epno) {
-        if(!animeId || typeof animeId !== 'string') throw `invalid anime id`;
-        if(!epno || typeof epno !== 'string') throw `invalid ep no`;
+        if(!animeId || typeof animeId !== 'string' || !animeId.replace(/\s/g, "").length) throw `invalid anime id`;
+        if(!epno || typeof epno !== 'string' || !epno.replace(/\s/g, "").length) throw `invalid ep no`;
         let discussionCollection = await discussion();
         let allDis = await discussionCollection.find({ animeId, epno }).toArray();
         return allDis;
     },
     async removeDiscussionByUserId(userId){
-        if(!userId || typeof userId !== 'string') throw `invalid user id`;
+        if(!userId || typeof userId !== 'string' || !userId.replace(/\s/g, "").length) throw `invalid user id`;
         let discussionCollection = await discussion();
         let deletionInfo = await discussionCollection.deleteMany({ userId: userId });
         if (deletionInfo.deletedCount === 0) {

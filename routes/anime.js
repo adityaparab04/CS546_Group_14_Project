@@ -128,6 +128,8 @@ router.get('/favorite/:id', async (req, res) => {
     if (!req.session.user) {
       return res.redirect('/users/login?msg=Please sign first.');
     }
+    if (!req.params.id || typeof req.params.id !== 'string' || !req.params.id.replace(/\s/g, "").length)
+        throw `Enter a valid Id`
     animeData.SetAnimeAsFavorite(req.params.id, req.session.user._id);
     res.redirect('/anime/' + req.params.id);
   }
@@ -141,6 +143,8 @@ router.get('/remove_favorite/:id', async (req, res) => {
     if (!req.session.user) {
       return res.redirect('/users/login?msg=Please sign first.');
     }
+    if (!req.params.id || typeof req.params.id !== 'string' || !req.params.id.replace(/\s/g, "").length)
+        throw `Enter a valid Id`
     animeData.RemoveAnimeFromFavorites(req.params.id, req.session.user._id);
     res.redirect('/anime/' + req.params.id);
   }
@@ -162,8 +166,8 @@ router.post('/rating', async (req, res) => {
   }
 });
 router.get('/discussion/:animeId/:epno', async (req, res) => {
-  if(!req.params.animeId || typeof req.params.animeId !== 'string') throw `invalid anime id`;
-  if(!req.params.epno || typeof req.params.epno !== 'string') throw `invalid ep no`;
+  if(!req.params.animeId || typeof req.params.animeId !== 'string' ||!req.params.animeId.replace(/\s/g, "").length) throw `invalid anime id`;
+  if(!req.params.epno || typeof req.params.epno !== 'string' || !req.params.epno.replace(/\s/g, "").length) throw `invalid ep no`;
   let discussions = await discussionData.getAllDiscussionsOfAnAnimeEpisode(req.params.animeId, req.params.epno);
   discussions = discussions.reverse();
   if (discussions && discussions.length > 0) {

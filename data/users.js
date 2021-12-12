@@ -116,7 +116,7 @@ async function getAllUsers() {
 async function deleteUser(_id) {
     if (_id === undefined || _id === null) { throw "Id is undefined" }
     if (_id.length === 0) { throw "Id is blank" }
-    if (typeof _id != 'string') throw 'Id should be string'
+    if (typeof _id != 'string' || !_id.replace(/\s/g, "").length) throw 'Id should be string'
     if (!ObjectId.isValid(_id)) { throw "Enter a valid object id" }
     const userCollection = await users(); 
     await removeReviewByaUserId(_id);
@@ -131,7 +131,7 @@ async function deleteUser(_id) {
 
 //remove review by user Id
 async function removeReviewByaUserId(userId) {
-    if (!userId || typeof userId !== 'string') throw `provide a review Id`
+    if (!userId || typeof userId !== 'string' || !userId.replace(/\s/g, "").length) throw `provide a review Id`
     let parseId = ObjectId(userId);
     let reviewCollection = await reviews();
     let userCollection = await users();
@@ -151,7 +151,7 @@ async function removeReviewByaUserId(userId) {
 
 //remove comments by user Id
 async function removeCommentsByUserId(userId) {
-    if (!userId || typeof userId !== 'string') throw `provide a review Id`
+    if (!userId || typeof userId !== 'string' || !userId.replace(/\s/g, "").length) throw `provide a review Id`
     let commentCollection = await comments();
 
     let deletionInfo = await commentCollection.deleteMany({ userId: userId });
@@ -274,6 +274,8 @@ async function updateUser(id, newUserData) {
 
 }
 async function addReviewToUser(userId, reviewId) {
+    if (!userId || typeof userId !== "string" || !userId.replace(/\s/g, "").length) throw `You must provide an user id`;
+    if (!reviewId || typeof reviewId !== "string" || !reviewId.replace(/\s/g, "").length) throw `You must provide a review id`;
     const userCollection = await users();
     const updateInfo = await userCollection.updateOne(
         { _id: ObjectId(userId) },
@@ -284,6 +286,8 @@ async function addReviewToUser(userId, reviewId) {
 }
 
 async function removeReviewFromUser(userId, reviewId) {
+    if (!userId || typeof userId !== "string" || !userId.replace(/\s/g, "").length) throw `You must provide an user id`;
+    if (!reviewId || typeof reviewId !== "string" || !reviewId.replace(/\s/g, "").length) throw `You must provide a review id`;
     const userCollection = await users();
     const updateInfo = await userCollection.updateOne(
         { _id: ObjectId(userId) },

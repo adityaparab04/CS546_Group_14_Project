@@ -6,6 +6,7 @@ const reviewData = data.reviews;
 
 router.get("/:id", async function (req, res) {
   try {
+    if(!req.params.id || typeof req.params.id !== 'string' || !req.params.id.replace(/\s/g, "").length) throw `invalid id`;
     const commentInfo = await commentData.getCommentById(req.params.id); // title, user(id), post(id), content, time
     // console.log(req.params.id)
     res.json(commentInfo);
@@ -56,6 +57,7 @@ router.post("/create", async (req, res) => { // add
 
 
 router.delete("/:id", async (req, res) => {
+  if(!req.params.id || typeof req.params.id !== 'string' || !req.params.id.replace(/\s/g, "").length) throw `invalid id`;
   try {
     await commentData.getCommentById(req.params.id);
   } catch (e) {

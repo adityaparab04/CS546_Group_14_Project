@@ -8,8 +8,8 @@ const animeCollection = require('./animeDb');
 
 //create a new review
 async function createReview(animeId, userId, content) {
-    if (!animeId || typeof animeId !== "string") throw `you must provide an anime Id`;
-    if (!userId || typeof userId !== "string") throw `you must provide an user Id`;
+    if (!animeId || typeof animeId !== "string" || !animeId.replace(/\s/g, "").length) throw `you must provide an anime Id`;
+    if (!userId || typeof userId !== "string" || !userId.replace(/\s/g, "").length) throw `you must provide an user Id`;
     if (!content || typeof content !== "string") throw `you should input a string as the content`;
     if(!content.replace(/\s/g, "").length) throw `Review cannot be empty spaces`;
     let reviewCollection = await reviews();
@@ -41,7 +41,7 @@ async function getAllReviews() {
 }
 
 async function getAllReviewsOfAUser(userId) {
-    if (!userId || typeof userId !== 'string') throw `provide a user Id`
+    if (!userId || typeof userId !== 'string' || !userId.replace(/\s/g, "").length) throw `provide a user Id`
     let reviewCollection = await reviews();
     let allReviews = await reviewCollection.find({userId}).toArray();
     return allReviews;
@@ -49,7 +49,7 @@ async function getAllReviewsOfAUser(userId) {
 
 //get reviews by review Id
 async function getReviewById(reviewId) {
-    if (!reviewId || typeof reviewId !== 'string') throw `provide a review Id`
+    if (!reviewId || typeof reviewId !== 'string' || !reviewId.replace(/\s/g, "").length) throw `provide a review Id`
     let reviewCollection = await reviews();
     let parseId = ObjectId(reviewId);
     let getReview = await reviewCollection.findOne({ _id: parseId })
@@ -61,7 +61,7 @@ async function getReviewById(reviewId) {
 
 //get review by anime Id
 async function getReviewByAnimeId(animeId) {
-    if (!animeId || typeof animeId !== 'string') throw `provide a review Id`
+    if (!animeId || typeof animeId !== 'string' || !animeId.replace(/\s/g, "").length) throw `provide a review Id`
     let reviewCollection = await reviews();
     let getAllReviews = await reviewCollection.find({ animeId: animeId }).toArray();
     if (getAllReviews === null) {
@@ -72,7 +72,7 @@ async function getReviewByAnimeId(animeId) {
 
 //remove review by review Id
 async function removeReview(reviewId) {
-    if (!reviewId || typeof reviewId !== 'string') throw `provide a review Id`
+    if (!reviewId || typeof reviewId !== 'string' || !reviewId.replace(/\s/g, "").length) throw `provide a review Id`
     let parseId = ObjectId(reviewId);
     let reviewCollection = await reviews();
     let reviewinfo = await getReviewById(reviewId);
@@ -93,7 +93,7 @@ async function removeReview(reviewId) {
 
 //remove review by anime Id
 async function removeReviewByaAnimeId(animeId) {
-    if (!animeId || typeof animeId !== 'string') throw `provide a review Id`
+    if (!animeId || typeof animeId !== 'string' || !animeId.replace(/\s/g, "").length) throw `provide a review Id`
     let reviewCollection = await reviews();
 
     let deletionInfo = await reviewCollection.remove({ animeId: animeId });
@@ -106,8 +106,8 @@ async function removeReviewByaAnimeId(animeId) {
 }
 
 async function addCommentIdToReview(reviewId, commentId) {
-    if (!reviewId || typeof reviewId !== "string") throw `You must provide a review id`;
-    if (!commentId || typeof commentId !== "string") throw `You must provide a comment id`;
+    if (!reviewId || typeof reviewId !== "string" || !reviewId.replace(/\s/g, "").length) throw `You must provide a review id`;
+    if (!commentId || typeof commentId !== "string" || !commentId.replace(/\s/g, "").length) throw `You must provide a comment id`;
 
     let parseId = ObjectId(reviewId);
     let reviewCollection = await reviews();
@@ -119,8 +119,8 @@ async function addCommentIdToReview(reviewId, commentId) {
 }
 
 async function removeCommentIdFromReview(reviewId, commentId) {
-    if (!reviewId || typeof reviewId !== "string") throw `You must provide a review id`;
-    if (!commentId || typeof commentId !== "string") throw `You must provide a comment id`;
+    if (!reviewId || typeof reviewId !== "string" || !reviewId.replace(/\s/g, "").length) throw `You must provide a review id`;
+    if (!commentId || typeof commentId !== "string" || !commentId.replace(/\s/g, "").length) throw `You must provide a comment id`;
     let parseId = ObjectId(reviewId);
     let reviewCollection = await reviews();
     let reviewInfo = await getReviewById(reviewId);
@@ -136,8 +136,8 @@ async function removeCommentIdFromReview(reviewId, commentId) {
 }
 
 async function addLikeCount(reviewId, userId) {
-    if (!reviewId || typeof reviewId !== "string") throw `You must provide a review id`;
-    if (!userId || typeof userId !== "string") throw `You must provide an user id`;
+    if (!reviewId || typeof reviewId !== "string" || !reviewId.replace(/\s/g, "").length) throw `You must provide a review id`;
+    if (!userId || typeof userId !== "string" || !userId.replace(/\s/g, "").length) throw `You must provide an user id`;
     let parseId = ObjectId(reviewId);
     let reviewInfo = await getReviewById(reviewId);
     if (reviewInfo.dislikeCount.indexOf(userId) !== -1)
@@ -164,8 +164,8 @@ async function addLikeCount(reviewId, userId) {
 }
 
 async function addDislikeCount(reviewId, userId) {
-    if (!reviewId || typeof reviewId !== "string") throw `You must provide a review id`;
-    if (!userId || typeof userId !== "string") throw `You must provide an user id`;
+    if (!reviewId || typeof reviewId !== "string" || !reviewId.replace(/\s/g, "").length) throw `You must provide a review id`;
+    if (!userId || typeof userId !== "string" || !userId.replace(/\s/g, "").length) throw `You must provide an user id`;
     let parseId = ObjectId(reviewId);
     let reviewInfo = await getReviewById(reviewId);
     if (reviewInfo.likeCount.indexOf(userId) !== -1)
@@ -190,7 +190,7 @@ async function addDislikeCount(reviewId, userId) {
 }
 
 async function removeCommentsByReviewId(reviewId) {
-    if (!reviewId || typeof reviewId !== 'string') throw `provide a review Id`
+    if (!reviewId || typeof reviewId !== 'string' || !reviewId.replace(/\s/g, "").length) throw `provide a review Id`
     let commentCollection = await comments();
 
     let deletionInfo = await commentCollection.deleteMany({ reviewId: reviewId });
