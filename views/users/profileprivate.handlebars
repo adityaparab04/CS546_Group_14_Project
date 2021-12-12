@@ -4,6 +4,7 @@
     <p>{{msg}}</p>
 </div>
 {{else}}
+<h1>My Profile</h1>
 <div class="card mb-4 bg-dark col-4 offset-4">
     <ul class="list-group bg-dark list-group-flush">
         <li class="list-group-item bg-dark" style="color: white;"><img class="img-fluid" src="{{user.picture}}" alt="user" /> </li>
@@ -42,3 +43,79 @@
     </div>
 </div>
 {{/if}}
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <h2>My Reviews</h2>
+            {{#if reviews}}
+            <div class="table-responsive">
+                <table class="text-light table ">
+                    <thead>
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">likes</th>
+                            <th scope="col">dislikes</th>
+                            <th scope="col">date</th>
+                            <th scope="col">content</th>
+
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each reviews}}
+                        <tr>
+                            <td>{{user.username}}</td>
+                            <td>{{noOfLikes}}</td>
+                            <td>{{noOfDislikes}}</td>
+                            <td>{{date}}</td>
+                            <td>{{content}}</td>
+
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-sm btn-danger"
+                                        onclick="window.location.href='/users/profile/{{this._id}}'">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+            {{else}}
+            <p>You have not written reviews yet</p>
+            {{/if}}
+            <h3>My Comments</h3>
+            {{#if comments}}
+            <div class="table-responsive">
+                <table class="text-light table ">
+                    <thead>
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">date</th>
+                            <th scope="col">content</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each comments}}
+                        <tr>
+                            <td>{{this.user.username}}</td>
+                            <td>{{this.date}}</td>
+                            <td>{{this.content}}</td>
+
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-sm btn-danger"
+                                        onclick="window.location.href='/users/profile/delete/{{this.reviewId}}/{{this._id}}'">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+            {{else}}
+            <p>You don't have any comments to show</p>
+            {{/if}}
+        </main>
