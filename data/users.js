@@ -120,7 +120,7 @@ async function deleteUser(_id) {
     if (!ObjectId.isValid(_id)) { throw "Enter a valid object id" }
     const userCollection = await users(); 
     await removeReviewByaUserId(_id);
-    const deletionInfo = await userCollection.deleteOne({ "_id": ObjectId(_id) });
+    const deletionInfo = await userCollection.deleteOne({ _id: ObjectId(_id) });
     if (deletionInfo.deletedCount === 0) {
         throw `Could not delete user with id of ${_id}`;
     }
