@@ -7,9 +7,9 @@ Aditya Kotian
 Vaibhav Vashisht
 Seema Muchandi
 
-API Website for project : https://kitsu.docs.apiary.io/#introduction/json:api
+## API Website for project : https://kitsu.docs.apiary.io/#introduction/json:api
 
-A. Mandatory Steps:
+### A. Mandatory Steps:
 
 1. PLEASE MAKE SURE YOU HAVE A PROPER INTERNET CONNECTION BEFORE STARTING THE APPLICATION AS THE API REQUIRES IT TO POPULATE THE DATA TO THE WEBSITE!
 
@@ -23,7 +23,7 @@ A. Mandatory Steps:
 
 6. Click on http://localhost:3000 or copy this Local URL in your browser. You will be redirected to the Home Page of our project: Otaku Hub.
 
-B. Otaku Hub: Home Page (http://localhost:3000/)
+### B. Otaku Hub: Home Page (http://localhost:3000/)
 
 1. On the navigation bar, you will get few links like Otaku Hub Logo, Login, Sign Up and Search Bar.
 
