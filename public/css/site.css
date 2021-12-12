@@ -194,8 +194,53 @@ body > footer {
 
 #error-line{
   color: black;
+  font-weight: bold;
 }
 
 .alert-heading{
   color: black;
+  font-weight: bold;
+}
+
+.message-candidate {
+  background: #777c00;
+  padding: 40px;
+  max-width: 600px;
+  margin-bottom: 10px;
+  border-radius: 30px;
+}
+
+.message-candidate-self {
+  background:#00819e ;
+  padding: 40px;
+  max-width: 600px;
+  margin-bottom: 10px;
+  border-radius: 30px;
+}
+
+.messaging {
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+.message-text {
+  margin-top: 10px;
+}
+
+.message-photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center center;
+  display: inline-block;
+}
+
+.message-name {
+  margin-left: 10px;
+  display: inline-block;
+}
+
+#discussionText{
+  margin-bottom: 20px;
 }
